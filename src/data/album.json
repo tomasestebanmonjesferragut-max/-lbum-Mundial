@@ -3,5 +3,10 @@
     "codigo": "FWC 07",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 01",
+    "pais": "México",
+    "pegada": true
   }
 ]
