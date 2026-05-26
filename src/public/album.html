@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Álbum Físico · Mundial 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── VARIABLES EXTRA ─────────────────────── */
+        :root {
+            --green:  #10b981;
+            --green2: #059669;
+            --red:    #ef4444;
+            --miss-bg:    rgba(255,255,255,0.03);
+            --miss-border:rgba(37,99,235,0.18);
+        }
+
+        /* ── RESET BODY para full-width ─────────── */
+        body { padding: 0; }
+
+        /* ── TOP NAV ─────────────────────────────── */
+        .topnav {
+            background: var(--panel-bg);
+            border-bottom: 1px solid rgba(0,242,254,0.15);
+            padding: 12px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+        .topnav-brand {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .topnav-links { display: flex; gap: 8px; }
+        .topnav-links a {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 5px;
+            border: 1px solid transparent;
+            color: var(--text-dim);
+            transition: all 0.2s;
+        }
+        .topnav-links a:hover {
+            color: var(--text-main);
+            border-color: rgba(0,242,254,0.2);
+        }
+        .topnav-links a.active {
+            color: var(--neon-cyan);
+            border-color: rgba(0,242,254,0.35);
+            background: rgba(0,242,254,0.06);
+            box-shadow: 0 0 10px rgba(0,242,254,0.1);
+        }
+
+        /* ── PAGE WRAPPER ────────────────────────── */
+        .page { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
+
+        /* ── PAGE HEADER ─────────────────────────── */
+        .page-header {
+            text-align: center;
+            padding: 28px 20px 24px;
+            border-bottom: 2px solid var(--accent-blue);
+            margin-bottom: 24px;
+        }
+        .page-header h1 { font-size: 1.9rem; margin-bottom: 4px; }
+        .page-header p { color: var(--text-dim); font-size: 0.88rem; margin: 0; letter-spacing: 0.5px; }
+
+        /* ── STATS ROW ───────────────────────────── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(37,99,235,0.3);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        }
+        .stat-card .s-num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            line-height: 1;
+            text-shadow: 0 0 12px rgba(0,242,254,0.3);
+        }
+        .stat-card.s-green .s-num { color: var(--green); text-shadow: 0 0 12px rgba(16,185,129,0.3); }
+        .stat-card.s-dim   .s-num { color: var(--text-dim); text-shadow: none; }
+        .stat-card .s-lbl {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        /* ── PROGRESS BAR ────────────────────────── */
+        .prog-wrap {
+            background: var(--panel-bg);
+            border: 1px solid rgba(37,99,235,0.3);
+            border-radius: 10px;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .prog-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); white-space: nowrap; }
+        .prog-bar-outer { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
+        .prog-bar-inner { height: 100%; background: linear-gradient(90deg, var(--green2), var(--green)); border-radius: 99px; transition: width 0.7s ease; box-shadow: 0 0 8px rgba(16,185,129,0.4); }
+        .prog-pct { font-size: 1rem; font-weight: 800; color: var(--green); min-width: 46px; text-align: right; }
+
+        /* ── TOOLBAR ─────────────────────────────── */
+        .toolbar {
+            background: var(--panel-bg);
+            border: 1px solid rgba(37,99,235,0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .tb-btn {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 7px 14px;
+            border-radius: 5px;
+            border: 1px solid rgba(37,99,235,0.3);
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .tb-btn:hover { color: var(--text-main); border-color: rgba(0,242,254,0.3); }
+        .tb-btn.f-all  { color: var(--text-main); border-color: rgba(0,242,254,0.4); background: rgba(0,242,254,0.06); box-shadow: 0 0 8px rgba(0,242,254,0.1); }
+        .tb-btn.f-have { color: var(--green);     border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.07); }
+        .tb-btn.f-miss { color: var(--red);       border-color: rgba(239,68,68,0.4);  background: rgba(239,68,68,0.07); }
+
+        .tb-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.07); margin: 0 2px; }
+
+        .tb-legend { display: flex; gap: 14px; align-items: center; }
+        .tb-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.3px; }
+        .leg-dot { width: 9px; height: 9px; border-radius: 2px; }
+        .leg-have { background: var(--green); box-shadow: 0 0 5px rgba(16,185,129,0.4); }
+        .leg-miss { background: rgba(255,255,255,0.05); border: 1px solid rgba(37,99,235,0.25); }
+
+        .tb-search {
+            margin-left: auto;
+            padding: 7px 14px;
+            border-radius: 5px;
+            border: 1px solid var(--accent-blue);
+            background: rgba(0,242,254,0.04);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            width: 210px;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+        .tb-search:focus { box-shadow: 0 0 10px rgba(0,242,254,0.3); border-color: var(--neon-cyan); }
+        .tb-search::placeholder { color: var(--text-dim); }
+
+        /* ── HINT BAR ────────────────────────────── */
+        .hint-bar {
+            background: rgba(0,242,254,0.04);
+            border: 1px solid rgba(0,242,254,0.1);
+            border-radius: 8px;
+            padding: 8px 18px;
+            margin-bottom: 24px;
+            font-size: 0.76rem;
+            color: rgba(0,242,254,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        /* ── GROUP SECTION ───────────────────────── */
+        .group-section { margin-bottom: 32px; }
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(37,99,235,0.25);
+        }
+        .group-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(37,99,235,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .group-title { color: var(--neon-cyan); font-size: 1rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .group-count { margin-left: auto; font-size: 0.78rem; color: var(--text-dim); }
+        .group-count b { color: var(--green); }
+
+        /* ── TEAMS GRID ──────────────────────────── */
+        .teams-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+        /* ── TEAM CARD ───────────────────────────── */
+        .team-card {
+            background: var(--panel-bg);
+            border: 1px solid rgba(37,99,235,0.25);
+            border-radius: 8px;
+            padding: 12px 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .team-card:hover { border-color: rgba(0,242,254,0.25); box-shadow: 0 0 12px rgba(0,242,254,0.06); }
+        .team-card.hidden { display: none; }
+
+        .team-card-hd {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 10px;
+        }
+        .team-prefix {
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            background: rgba(0,242,254,0.08);
+            border: 1px solid rgba(0,242,254,0.2);
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .team-name { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-main); flex: 1; }
+        .team-count { font-size: 0.74rem; color: var(--text-dim); white-space: nowrap; }
+        .team-count b { color: var(--green); }
+
+        /* ── STICKER GRID ────────────────────────── */
+        .sticker-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+
+        .sticker {
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.08s, background 0.12s;
+            position: relative;
+        }
+        .sticker:hover  { transform: scale(1.1); z-index: 5; }
+        .sticker:active { transform: scale(0.9); }
+
+        .s-miss {
+            background: var(--miss-bg);
+            border: 1px solid var(--miss-border);
+            color: rgba(148,163,184,0.3);
+        }
+        .s-miss:hover { border-color: rgba(16,185,129,0.35); color: rgba(16,185,129,0.5); }
+
+        .s-have {
+            background: rgba(16,185,129,0.12);
+            border: 1px solid rgba(16,185,129,0.45);
+            color: var(--green);
+            box-shadow: 0 0 6px rgba(16,185,129,0.15);
+        }
+        .s-have:hover { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.4); color: var(--red); box-shadow: none; }
+
+        /* ── TOAST ───────────────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            z-index: 999;
+            background: var(--panel-bg);
+            border: 1px solid rgba(37,99,235,0.4);
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(0,242,254,0.05);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.22s;
+            pointer-events: none;
+        }
+        .toast.show   { opacity: 1; transform: translateY(0); }
+        .toast.t-add  { border-color: rgba(16,185,129,0.5); color: var(--green); box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 16px rgba(16,185,129,0.15); }
+        .toast.t-rem  { border-color: rgba(239,68,68,0.45); color: #f87171; }
+
+        /* ── LOADING ─────────────────────────────── */
+        .loading { text-align: center; padding: 60px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; }
+        .spinner { width: 32px; height: 32px; border: 3px solid rgba(0,242,254,0.1); border-top-color: var(--neon-cyan); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 16px; box-shadow: 0 0 12px rgba(0,242,254,0.2); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media(max-width:640px){
+            .stats-row { grid-template-columns: repeat(3,1fr); }
+            .teams-grid { grid-template-columns: 1fr; }
+            .tb-search { width: 100%; margin-left: 0; }
+            .tb-legend { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="topnav">
+    <span class="topnav-brand">⚽ Mundial 2026</span>
+    <div class="topnav-links">
+        <a href="index.html">Repetidas</a>
+        <a href="album.html" class="active">Mi Álbum</a>
+    </div>
+</nav>
+
+<div class="page">
+
+    <div class="page-header">
+        <h1>Mi Álbum Físico</h1>
+        <p>FIFA World Cup 2026 &nbsp;·&nbsp; Panini &nbsp;·&nbsp; Registro independiente de láminas</p>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="s-num" id="statTotal">—</div>
+            <div class="s-lbl">Total láminas</div>
+        </div>
+        <div class="stat-card s-green">
+            <div class="s-num" id="statTengo">—</div>
+            <div class="s-lbl">Pegadas</div>
+        </div>
+        <div class="stat-card s-dim">
+            <div class="s-num" id="statFaltan">—</div>
+            <div class="s-lbl">Me faltan</div>
+        </div>
+    </div>
+
+    <div class="prog-wrap">
+        <span class="prog-label">Progreso del álbum</span>
+        <div class="prog-bar-outer">
+            <div class="prog-bar-inner" id="progBar" style="width:0%"></div>
+        </div>
+        <div class="prog-pct" id="progPct">0%</div>
+    </div>
+
+    <div class="toolbar">
+        <button class="tb-btn f-all" onclick="setFilter('all',this)">Todas</button>
+        <button class="tb-btn"       onclick="setFilter('have',this)">✅ Tengo</button>
+        <button class="tb-btn"       onclick="setFilter('miss',this)">❌ Faltan</button>
+        <div class="tb-divider"></div>
+        <div class="tb-legend">
+            <div class="tb-legend-item"><div class="leg-dot leg-have"></div>Pegada — clic para quitar</div>
+            <div class="tb-legend-item"><div class="leg-dot leg-miss"></div>Falta — clic para marcar</div>
+        </div>
+        <input class="tb-search" type="text" id="searchInput" placeholder="🔍 Buscar país..." oninput="applyFilters()">
+    </div>
+
+    <div class="hint-bar">💡 Haz clic en cualquier lámina para marcarla como pegada, o volver a hacer clic para quitarla</div>
+
+    <div id="albumContent">
+        <div class="loading">
+            <div class="spinner"></div>
+            Cargando álbum...
+        </div>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DICCIONARIO = {
+    "FWC": { nombre:"FIFA",           grupo:"FIFA", max:19, extra:["00"] },
+    "MEX": { nombre:"México",         grupo:"A",  max:20 },
+    "RSA": { nombre:"Sudáfrica",        grupo:"A",  max:20 },
+    "KOR": { nombre:"Corea del Sur",    grupo:"A",  max:20 },
+    "CZE": { nombre:"Rep. Checa",        grupo:"A",  max:20 },
+    "CAN": { nombre:"Canadá",           grupo:"B",  max:20 },
+    "BIH": { nombre:"Bosnia y Herz.",    grupo:"B",  max:20 },
+    "QAT": { nombre:"Catar",            grupo:"B",  max:20 },
+    "SUI": { nombre:"Suiza",            grupo:"B",  max:20 },
+    "BRA": { nombre:"Brasil",           grupo:"C",  max:20 },
+    "MAR": { nombre:"Marruecos",        grupo:"C",  max:20 },
+    "HAI": { nombre:"Haití",            grupo:"C",  max:20 },
+    "SCO": { nombre:"Escocia",          grupo:"C",  max:20 },
+    "USA": { nombre:"Estados Unidos",    grupo:"D",  max:20 },
+    "PAR": { nombre:"Paraguay",          grupo:"D",  max:20 },
+    "AUS": { nombre:"Australia",        grupo:"D",  max:20 },
+    "TUR": { nombre:"Turquía",          grupo:"D",  max:20 },
+    "GER": { nombre:"Alemania",          grupo:"E",  max:20 },
+    "CUW": { nombre:"Curazao",          grupo:"E",  max:20 },
+    "CIV": { nombre:"Costa de Marfil",  grupo:"E",  max:20 },
+    "ECU": { nombre:"Ecuador",          grupo:"E",  max:20 },
+    "NED": { nombre:"Países Bajos",      grupo:"F",  max:20 },
+    "JPN": { nombre:"Japón",            grupo:"F",  max:20 },
+    "SWE": { nombre:"Suecia",           grupo:"F",  max:20 },
+    "TUN": { nombre:"Túnez",            grupo:"F",  max:20 },
+    "BEL": { nombre:"Bélgica",          grupo:"G",  max:20 },
+    "EGY": { nombre:"Egipto",           grupo:"G",  max:20 },
+    "IRN": { nombre:"Irán",             grupo:"G",  max:20 },
+    "NZL": { nombre:"Nueva Zelanda",    grupo:"G",  max:20 },
+    "ESP": { nombre:"España",           grupo:"H",  max:20 },
+    "CPV": { nombre:"Cabo Verde",        grupo:"H",  max:20 },
+    "KSA": { nombre:"Arabia Saudita",    grupo:"H",  max:20 },
+    "URU": { nombre:"Uruguay",          grupo:"H",  max:20 },
+    "FRA": { nombre:"Francia",          grupo:"I",  max:20 },
+    "SEN": { nombre:"Senegal",          grupo:"I",  max:20 },
+    "IRQ": { nombre:"Irak",             grupo:"I",  max:20 },
+    "NOR": { nombre:"Noruega",          grupo:"I",  max:20 },
+    "ARG": { nombre:"Argentina",        grupo:"J",  max:20 },
+    "ALG": { nombre:"Argelia",          grupo:"J",  max:20 },
+    "AUT": { nombre:"Austria",          grupo:"J",  max:20 },
+    "JOR": { nombre:"Jordania",          grupo:"J",  max:20 },
+    "POR": { nombre:"Portugal",          grupo:"K",  max:20 },
+    "COD": { nombre:"R.D. del Congo",    grupo:"K",  max:20 },
+    "UZB": { nombre:"Uzbekistán",        grupo:"K",  max:20 },
+    "COL": { nombre:"Colombia",          grupo:"K",  max:20 },
+    "ENG": { nombre:"Inglaterra",        grupo:"L",  max:20 },
+    "CRO": { nombre:"Croacia",          grupo:"L",  max:20 },
+    "GHA": { nombre:"Ghana",            grupo:"L",  max:20 },
+    "PAN": { nombre:"Panamá",           grupo:"L",  max:20 },
+    "CC":  { nombre:"Coca-Cola",        grupo:"CC", max:14 }
+};
+
+let albumSet = new Set();
+let filtroActivo = 'all';
+let toastTimer = null;
+
+async function init() {
+    try {
+        const res = await fetch('/api/album');
+        if (res.ok) {
+            const data = await res.json();
+            for (const l of data) albumSet.add(l.codigo.trim().toUpperCase());
+        }
+    } catch(e) { console.warn('Sin servidor'); }
+    renderAlbum();
+    updateStats();
+}
+
+function getCodigos(prefijo, info) {
+    const list = [];
+    if (info.extra) for (const ex of info.extra) list.push(`${prefijo} ${ex}`);
+    for (let i = 1; i <= info.max; i++) list.push(`${prefijo} ${String(i).padStart(2,'0')}`);
+    return list;
+}
+
+async function toggleLamina(codigo, el) {
+    const tengo = albumSet.has(codigo);
+    if (tengo) {
+        albumSet.delete(codigo);
+        el.className = 'sticker s-miss';
+        showToast(`❌  ${codigo} — quitada`, 'rem');
+        try { await fetch(`/api/album/${encodeURIComponent(codigo)}`, { method:'DELETE' }); } catch(e) {}
+    } else {
+        albumSet.add(codigo);
+        el.className = 'sticker s-have';
+        showToast(`✅  ${codigo} — pegada`, 'add');
+        try {
+            await fetch('/api/album', {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ codigos:[codigo] })
+            });
+        } catch(e) {}
+    }
+    const card = el.closest('.team-card');
+    if (card) {
+        const total = card.querySelectorAll('.sticker').length;
+        const now   = card.querySelectorAll('.s-have').length;
+        card.querySelector('.team-count').innerHTML = `<b>${now}</b>/${total}`;
+    }
+    updateStats();
+}
+
+function renderAlbum() {
+    const grupos = {};
+    for (const [pref, info] of Object.entries(DICCIONARIO)) {
+        if (!grupos[info.grupo]) grupos[info.grupo] = [];
+        grupos[info.grupo].push({ pref, info });
+    }
+    const ORDER = ['FIFA','A','B','C','D','E','F','G','H','I','J','K','L','CC'];
+    const keys = Object.keys(grupos).sort((a,b)=>ORDER.indexOf(a)-ORDER.indexOf(b));
+
+    let html = '';
+    for (const grupo of keys) {
+        const equipos = grupos[grupo];
+        const label   = grupo==='FIFA' ? 'Sección FIFA' : grupo==='CC' ? 'Coca-Cola' : `Grupo ${grupo}`;
+        const badge   = (grupo==='FIFA'||grupo==='CC') ? grupo : 'GRUPO';
+
+        let totalG=0, tengoG=0;
+        for (const {pref,info} of equipos) {
+            const c = getCodigos(pref,info);
+            totalG += c.length;
+            tengoG += c.filter(cod=>albumSet.has(cod)).length;
+        }
+
+        html += `<div class="group-section" data-grupo="${grupo}">
+            <div class="group-header">
+                <span class="group-badge">${badge}</span>
+                <span class="group-title">${label}</span>
+                <span class="group-count"><b>${tengoG}</b> / ${totalG}</span>
+            </div>
+            <div class="teams-grid">`;
+
+        for (const {pref,info} of equipos) {
+            const codigos = getCodigos(pref,info);
+            const tengo   = codigos.filter(c=>albumSet.has(c)).length;
+
+            let stk = '';
+            for (let i = 0; i < codigos.length; i++) {
+                const cod = codigos[i];
+                const cls = albumSet.has(cod) ? 's-have' : 's-miss';
+                const num = cod.replace(pref,'').trim();
+                
+                // Forzar salto de línea en el sticker número 10 (índice 10)
+                if (i === 10) stk += `<div style="flex-basis: 100%; height: 0;"></div>`;
+                
+                stk += `<div class="sticker ${cls}" onclick="toggleLamina('${cod}',this)" title="${cod}">${num}</div>`;
+            }
+
+            html += `<div class="team-card" data-search="${info.nombre.toLowerCase()} ${pref.toLowerCase()}">
+                <div class="team-card-hd">
+                    <span class="team-prefix">${pref}</span>
+                    <span class="team-name">${info.nombre}</span>
+                    <span class="team-count"><b>${tengo}</b>/${codigos.length}</span>
+                </div>
+                <div class="sticker-grid">${stk}</div>
+            </div>`;
+        }
+        html += `</div></div>`;
+    }
+    document.getElementById('albumContent').innerHTML = html;
+}
+
+function updateStats() {
+    let total=0, tengo=0;
+    for (const [pref,info] of Object.entries(DICCIONARIO)) {
+        const c = getCodigos(pref,info);
+        total += c.length;
+        tengo += c.filter(cod=>albumSet.has(cod)).length;
+    }
+    const pct = total>0 ? Math.round((tengo/total)*100) : 0;
+    document.getElementById('statTotal').textContent  = total;
+    document.getElementById('statTengo').textContent  = tengo;
+    document.getElementById('statFaltan').textContent = total - tengo;
+    document.getElementById('progBar').style.width    = pct+'%';
+    document.getElementById('progPct').textContent    = pct+'%';
+}
+
+function setFilter(tipo, btn) {
+    filtroActivo = tipo;
+    document.querySelectorAll('.tb-btn').forEach(b => b.className='tb-btn');
+    const map = {all:'f-all', have:'f-have', miss:'f-miss'};
+    btn.classList.add(map[tipo]);
+    applyFilters();
+}
+
+function applyFilters() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    document.querySelectorAll('.team-card').forEach(card => {
+        const matchQ = !q || card.dataset.search.includes(q);
+        let matchF = true;
+        if (filtroActivo==='have') matchF = card.querySelectorAll('.s-have').length > 0;
+        if (filtroActivo==='miss') matchF = card.querySelectorAll('.s-miss').length > 0;
+        card.classList.toggle('hidden', !matchQ || !matchF);
+    });
+    document.querySelectorAll('.group-section').forEach(sec => {
+        sec.style.display = sec.querySelectorAll('.team-card:not(.hidden)').length===0 ? 'none' : '';
+    });
+}
+
+function showToast(msg, tipo) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast t-${tipo} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>{ t.className='toast'; }, 1700);
+}
+
+init();
+</script>
+</body>
+</html>
