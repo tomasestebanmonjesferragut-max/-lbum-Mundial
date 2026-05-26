@@ -327,5 +327,10 @@
   {
     "codigo": "FWC 01",
     "pais": "FIFA"
+  },
+  {
+    "codigo": "FWC 02",
+    "pais": "FIFA",
+    "cantidad": 2
   }
 ]
