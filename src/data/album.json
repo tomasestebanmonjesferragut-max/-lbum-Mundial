@@ -73,5 +73,10 @@
     "codigo": "RSA 17",
     "pais": "Sudáfrica",
     "pegada": true
+  },
+  {
+    "codigo": "RSA 20",
+    "pais": "Sudáfrica",
+    "pegada": true
   }
 ]
