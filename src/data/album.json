@@ -1008,5 +1008,10 @@
     "codigo": "NZL 01",
     "pais": "Nueva Zelanda",
     "pegada": true
+  },
+  {
+    "codigo": "NZL 02",
+    "pais": "Nueva Zelanda",
+    "pegada": true
   }
 ]
