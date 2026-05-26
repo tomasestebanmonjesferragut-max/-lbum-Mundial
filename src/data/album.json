@@ -968,5 +968,10 @@
     "codigo": "EGY 19",
     "pais": "Egipto",
     "pegada": true
+  },
+  {
+    "codigo": "EGY 20",
+    "pais": "Egipto",
+    "pegada": true
   }
 ]
