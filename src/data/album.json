@@ -1233,5 +1233,10 @@
     "codigo": "SEN 01",
     "pais": "Senegal",
     "pegada": true
+  },
+  {
+    "codigo": "SEN 04",
+    "pais": "Senegal",
+    "pegada": true
   }
 ]
