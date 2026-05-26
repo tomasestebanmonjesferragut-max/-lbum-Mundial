@@ -1078,5 +1078,10 @@
     "codigo": "CPV 05",
     "pais": "Cabo Verde",
     "pegada": true
+  },
+  {
+    "codigo": "CPV 06",
+    "pais": "Cabo Verde",
+    "pegada": true
   }
 ]
