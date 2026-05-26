@@ -1713,5 +1713,10 @@
     "codigo": "GHA 15",
     "pais": "Ghana",
     "pegada": true
+  },
+  {
+    "codigo": "PAN 01",
+    "pais": "Panamá",
+    "pegada": true
   }
 ]
