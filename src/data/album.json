@@ -578,5 +578,10 @@
     "codigo": "AUS 04",
     "pais": "Australia",
     "pegada": true
+  },
+  {
+    "codigo": "AUS 06",
+    "pais": "Australia",
+    "pegada": true
   }
 ]
