@@ -1438,5 +1438,10 @@
     "codigo": "POR 08",
     "pais": "Portugal",
     "pegada": true
+  },
+  {
+    "codigo": "POR 12",
+    "pais": "Portugal",
+    "pegada": true
   }
 ]
