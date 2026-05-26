@@ -8,5 +8,10 @@
     "codigo": "MEX 01",
     "pais": "México",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 03",
+    "pais": "México",
+    "pegada": true
   }
 ]
