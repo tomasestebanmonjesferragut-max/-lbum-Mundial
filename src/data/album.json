@@ -33,5 +33,10 @@
     "codigo": "MEX 10",
     "pais": "México",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 11",
+    "pais": "México",
+    "pegada": true
   }
 ]
