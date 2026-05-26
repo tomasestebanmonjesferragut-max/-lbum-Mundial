@@ -63,5 +63,10 @@
     "codigo": "RSA 08",
     "pais": "Sudáfrica",
     "pegada": true
+  },
+  {
+    "codigo": "RSA 12",
+    "pais": "Sudáfrica",
+    "pegada": true
   }
 ]
