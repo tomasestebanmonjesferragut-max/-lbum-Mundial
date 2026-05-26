@@ -1703,5 +1703,10 @@
     "codigo": "GHA 08",
     "pais": "Ghana",
     "pegada": true
+  },
+  {
+    "codigo": "GHA 10",
+    "pais": "Ghana",
+    "pegada": true
   }
 ]
