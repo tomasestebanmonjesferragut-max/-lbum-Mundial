@@ -768,5 +768,10 @@
     "codigo": "CIV 12",
     "pais": "Costa de Marfil",
     "pegada": true
+  },
+  {
+    "codigo": "ECU 01",
+    "pais": "Ecuador",
+    "pegada": true
   }
 ]
