@@ -373,5 +373,10 @@
     "codigo": "MAR 19",
     "pais": "Marruecos",
     "pegada": true
+  },
+  {
+    "codigo": "HAI 01",
+    "pais": "Haití",
+    "pegada": true
   }
 ]
