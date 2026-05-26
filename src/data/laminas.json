@@ -371,5 +371,10 @@
   {
     "codigo": "RSA 10",
     "pais": "Sudáfrica"
+  },
+  {
+    "codigo": "MEX 05",
+    "pais": "México",
+    "cantidad": 1
   }
 ]
