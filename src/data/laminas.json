@@ -351,5 +351,10 @@
     "codigo": "MEX 08",
     "pais": "México",
     "cantidad": 1
+  },
+  {
+    "codigo": "FWC 06",
+    "pais": "FIFA",
+    "cantidad": 1
   }
 ]
