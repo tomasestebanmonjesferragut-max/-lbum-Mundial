@@ -18,5 +18,10 @@
     "codigo": "MEX 04",
     "pais": "México",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 06",
+    "pais": "México",
+    "pegada": true
   }
 ]
