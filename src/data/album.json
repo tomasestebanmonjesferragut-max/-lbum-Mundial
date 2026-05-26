@@ -833,5 +833,10 @@
     "codigo": "JPN 20",
     "pais": "Japón",
     "pegada": true
+  },
+  {
+    "codigo": "SWE 01",
+    "pais": "Suecia",
+    "pegada": true
   }
 ]
