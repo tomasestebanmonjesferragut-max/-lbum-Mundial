@@ -1003,5 +1003,10 @@
     "codigo": "IRN 16",
     "pais": "Irán",
     "pegada": true
+  },
+  {
+    "codigo": "NZL 01",
+    "pais": "Nueva Zelanda",
+    "pegada": true
   }
 ]
