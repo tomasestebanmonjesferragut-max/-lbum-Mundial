@@ -332,5 +332,10 @@
     "codigo": "FWC 02",
     "pais": "FIFA",
     "cantidad": 2
+  },
+  {
+    "codigo": "CZE 18",
+    "pais": "República Checa",
+    "cantidad": 1
   }
 ]
