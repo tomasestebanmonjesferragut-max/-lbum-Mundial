@@ -963,5 +963,10 @@
     "codigo": "BEL 20",
     "pais": "Bélgica",
     "pegada": true
+  },
+  {
+    "codigo": "EGY 03",
+    "pais": "Egipto",
+    "pegada": true
   }
 ]
