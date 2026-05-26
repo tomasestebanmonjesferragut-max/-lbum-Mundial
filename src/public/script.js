@@ -281,84 +281,19 @@ function filtrarLaminas() {
 }
 
 async function descargarImagen() {
-    // 1. Crear un contenedor temporal (una "hoja blanca" invisible)
-    const hojaBlanca = document.createElement('div');
-    hojaBlanca.style.position = 'absolute';
-    hojaBlanca.style.left = '-9999px'; // Esconderlo fuera de la pantalla
-    hojaBlanca.style.top = '0';
-    hojaBlanca.style.width = '800px'; // Ancho de la hoja
-    hojaBlanca.style.backgroundColor = '#ffffff'; // Fondo blanco
-    hojaBlanca.style.color = '#000000'; // Texto negro
-    hojaBlanca.style.padding = '40px';
-    hojaBlanca.style.fontFamily = 'Arial, sans-serif';
-
-    // 2. Armar el encabezado de la hoja
-    let html = `
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="color: #000; margin: 0; font-size: 26px;">Mis Láminas Repetidas - Mundial 2026</h1>
-            <p style="color: #555; margin: 5px 0; font-size: 14px;">Generado por GhostDev Gestor</p>
-        </div>
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-            <tr>
-                <th style="border: 2px solid #333; padding: 12px; background-color: #f1f5f9; color: #000; width: 25%;">País</th>
-                <th style="border: 2px solid #333; padding: 12px; background-color: #f1f5f9; color: #000; width: 75%;">Números</th>
-            </tr>`;
-
-    // 3. Agrupar las láminas exactamente igual que en la tabla principal
-    const agrupadas = {};
-    todasLasLaminas.forEach(l => {
-        const [prefijo, num] = l.codigo.split(' ');
-        if (!agrupadas[prefijo]) agrupadas[prefijo] = { pais: l.pais || prefijo, prefijo: prefijo, numeros: [] };
-        agrupadas[prefijo].numeros.push({ numero: num, cantidad: l.cantidad });
+    const contenedor = document.getElementById('listaLaminas');
+    
+    // Captura el contenedor de la tabla
+    const canvas = await html2canvas(contenedor, {
+        backgroundColor: '#020617', // Color de fondo de tu tema
+        scale: 2 
     });
 
-    const listaPaises = Object.values(agrupadas).sort((a, b) => a.pais.localeCompare(b.pais));
-
-    // 4. Llenar la tabla limpia (sin botones, sin neón)
-    listaPaises.forEach(grupo => {
-        grupo.numeros.sort((a, b) => {
-            if (a.numero === "00") return -1;
-            if (b.numero === "00") return 1;
-            return parseInt(a.numero) - parseInt(b.numero);
-        });
-
-        let numerosHtml = grupo.numeros.map(n => {
-            // El multiplicador "x2" saldrá en rojo para que resalte en el papel blanco
-            let multiplicador = n.cantidad > 1 ? `<span style="color: #dc2626; font-weight: bold; font-size: 0.9em; margin-left: 2px;">(x${n.cantidad})</span>` : '';
-            return `<span style="display: inline-block; border: 1px solid #cbd5e1; padding: 4px 8px; border-radius: 4px; margin: 4px; background-color: #f8fafc; color: #0f172a; font-weight: bold;">
-                        ${n.numero} ${multiplicador}
-                    </span>`;
-        }).join(' ');
-
-        html += `
-            <tr>
-                <td style="border: 1px solid #94a3b8; padding: 12px; font-weight: bold; text-align: center; color: #000;">
-                    ${grupo.pais} <br>
-                    <span style="color: #64748b; font-size: 0.8em;">(${grupo.prefijo})</span>
-                </td>
-                <td style="border: 1px solid #94a3b8; padding: 12px; line-height: 2;">
-                    ${numerosHtml}
-                </td>
-            </tr>`;
-    });
-    html += '</table>';
-
-    // 5. Agregar la hoja al documento, tomar foto y eliminarla
-    hojaBlanca.innerHTML = html;
-    document.body.appendChild(hojaBlanca);
-
-    const canvas = await html2canvas(hojaBlanca, {
-        backgroundColor: '#ffffff',
-        scale: 2 // Alta resolución
-    });
-
+    // Descarga automática
     const link = document.createElement('a');
     link.download = 'Mis_Laminas_Mundial2026.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
-
-    // Destruir la hoja blanca virtual para no ensuciar tu página
-    document.body.removeChild(hojaBlanca);
 }
 
 function renderizarTabla(laminas) {
