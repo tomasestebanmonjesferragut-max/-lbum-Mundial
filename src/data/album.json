@@ -228,5 +228,10 @@
     "codigo": "BIH 16",
     "pais": "Bosnia y Herzegovina",
     "pegada": true
+  },
+  {
+    "codigo": "BIH 20",
+    "pais": "Bosnia y Herzegovina",
+    "pegada": true
   }
 ]
