@@ -233,5 +233,10 @@
     "codigo": "BIH 20",
     "pais": "Bosnia y Herzegovina",
     "pegada": true
+  },
+  {
+    "codigo": "QAT 03",
+    "pais": "Catar",
+    "pegada": true
   }
 ]
