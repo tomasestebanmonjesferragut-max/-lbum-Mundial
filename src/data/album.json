@@ -1533,5 +1533,10 @@
     "codigo": "COL 01",
     "pais": "Colombia",
     "pegada": true
+  },
+  {
+    "codigo": "COL 03",
+    "pais": "Colombia",
+    "pegada": true
   }
 ]
