@@ -748,5 +748,10 @@
     "codigo": "CUW 20",
     "pais": "Curazao",
     "pegada": true
+  },
+  {
+    "codigo": "CIV 02",
+    "pais": "Costa de Marfil",
+    "pegada": true
   }
 ]
