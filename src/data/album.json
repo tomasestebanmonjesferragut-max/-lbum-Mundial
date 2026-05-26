@@ -1628,5 +1628,10 @@
     "codigo": "CRO 02",
     "pais": "Croacia",
     "pegada": true
+  },
+  {
+    "codigo": "CRO 04",
+    "pais": "Croacia",
+    "pegada": true
   }
 ]
