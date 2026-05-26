@@ -403,5 +403,10 @@
     "codigo": "HAI 18",
     "pais": "Haití",
     "pegada": true
+  },
+  {
+    "codigo": "SCO 01",
+    "pais": "Escocia",
+    "pegada": true
   }
 ]
