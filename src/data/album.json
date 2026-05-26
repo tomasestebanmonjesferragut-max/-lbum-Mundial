@@ -778,5 +778,10 @@
     "codigo": "ECU 02",
     "pais": "Ecuador",
     "pegada": true
+  },
+  {
+    "codigo": "ECU 03",
+    "pais": "Ecuador",
+    "pegada": true
   }
 ]
