@@ -1708,5 +1708,10 @@
     "codigo": "GHA 10",
     "pais": "Ghana",
     "pegada": true
+  },
+  {
+    "codigo": "GHA 15",
+    "pais": "Ghana",
+    "pegada": true
   }
 ]
