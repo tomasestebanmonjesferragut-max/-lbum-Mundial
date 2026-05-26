@@ -1343,5 +1343,10 @@
     "codigo": "ALG 18",
     "pais": "Argelia",
     "pegada": true
+  },
+  {
+    "codigo": "AUT 13",
+    "pais": "Austria",
+    "pegada": true
   }
 ]
