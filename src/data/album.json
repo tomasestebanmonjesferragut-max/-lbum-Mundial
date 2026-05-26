@@ -763,5 +763,10 @@
     "codigo": "CIV 08",
     "pais": "Costa de Marfil",
     "pegada": true
+  },
+  {
+    "codigo": "CIV 12",
+    "pais": "Costa de Marfil",
+    "pegada": true
   }
 ]
