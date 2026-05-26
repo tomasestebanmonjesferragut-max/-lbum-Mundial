@@ -148,5 +148,10 @@
     "codigo": "CAN 03",
     "pais": "Canadá",
     "pegada": true
+  },
+  {
+    "codigo": "CAN 06",
+    "pais": "Canadá",
+    "pegada": true
   }
 ]
