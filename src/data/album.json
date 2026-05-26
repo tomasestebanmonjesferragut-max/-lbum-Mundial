@@ -1023,5 +1023,10 @@
     "codigo": "NZL 06",
     "pais": "Nueva Zelanda",
     "pegada": true
+  },
+  {
+    "codigo": "NZL 10",
+    "pais": "Nueva Zelanda",
+    "pegada": true
   }
 ]
