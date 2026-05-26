@@ -1228,5 +1228,10 @@
     "codigo": "FRA 20",
     "pais": "Francia",
     "pegada": true
+  },
+  {
+    "codigo": "SEN 01",
+    "pais": "Senegal",
+    "pegada": true
   }
 ]
