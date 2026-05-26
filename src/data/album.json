@@ -1123,5 +1123,10 @@
     "codigo": "KSA 15",
     "pais": "Arabia Saudita",
     "pegada": true
+  },
+  {
+    "codigo": "URU 05",
+    "pais": "Uruguay",
+    "pegada": true
   }
 ]
