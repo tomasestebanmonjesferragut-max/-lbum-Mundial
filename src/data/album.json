@@ -683,5 +683,10 @@
     "codigo": "GER 18",
     "pais": "Alemania",
     "pegada": true
+  },
+  {
+    "codigo": "CUW 01",
+    "pais": "Curazao",
+    "pegada": true
   }
 ]
