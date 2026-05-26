@@ -973,5 +973,10 @@
     "codigo": "EGY 20",
     "pais": "Egipto",
     "pegada": true
+  },
+  {
+    "codigo": "IRN 04",
+    "pais": "Irán",
+    "pegada": true
   }
 ]
