@@ -198,5 +198,10 @@
     "codigo": "CAN 19",
     "pais": "Canadá",
     "pegada": true
+  },
+  {
+    "codigo": "BIH 05",
+    "pais": "Bosnia y Herzegovina",
+    "pegada": true
   }
 ]
