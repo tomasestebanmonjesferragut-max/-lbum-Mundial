@@ -478,5 +478,10 @@
     "codigo": "SCO 19",
     "pais": "Escocia",
     "pegada": true
+  },
+  {
+    "codigo": "USA 03",
+    "pais": "Estados Unidos",
+    "pegada": true
   }
 ]
