@@ -153,5 +153,15 @@
     "codigo": "CAN 06",
     "pais": "Canadá",
     "pegada": true
+  },
+  {
+    "codigo": "CAN 07",
+    "pais": "Canadá",
+    "pegada": true
+  },
+  {
+    "codigo": "CAN 08",
+    "pais": "Canadá",
+    "pegada": true
   }
 ]
