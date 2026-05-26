@@ -118,5 +118,10 @@
     "codigo": "CZE 06",
     "pais": "República Checa",
     "pegada": true
+  },
+  {
+    "codigo": "CZE 08",
+    "pais": "República Checa",
+    "pegada": true
   }
 ]
