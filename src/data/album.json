@@ -688,5 +688,10 @@
     "codigo": "CUW 01",
     "pais": "Curazao",
     "pegada": true
+  },
+  {
+    "codigo": "CUW 02",
+    "pais": "Curazao",
+    "pegada": true
   }
 ]
