@@ -288,5 +288,10 @@
     "codigo": "SUI 01",
     "pais": "Suiza",
     "pegada": true
+  },
+  {
+    "codigo": "SUI 04",
+    "pais": "Suiza",
+    "pegada": true
   }
 ]
