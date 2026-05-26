@@ -28,5 +28,10 @@
     "codigo": "MEX 07",
     "pais": "México",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 10",
+    "pais": "México",
+    "pegada": true
   }
 ]
