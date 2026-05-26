@@ -543,5 +543,10 @@
     "codigo": "USA 20",
     "pais": "Estados Unidos",
     "pegada": true
+  },
+  {
+    "codigo": "PAR 01",
+    "pais": "Paraguay",
+    "pegada": true
   }
 ]
