@@ -378,5 +378,10 @@
     "codigo": "HAI 01",
     "pais": "Haití",
     "pegada": true
+  },
+  {
+    "codigo": "HAI 02",
+    "pais": "Haití",
+    "pegada": true
   }
 ]
