@@ -1133,5 +1133,10 @@
     "codigo": "URU 06",
     "pais": "Uruguay",
     "pegada": true
+  },
+  {
+    "codigo": "URU 08",
+    "pais": "Uruguay",
+    "pegada": true
   }
 ]
