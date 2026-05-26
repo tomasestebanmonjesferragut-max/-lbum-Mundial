@@ -428,5 +428,10 @@
     "codigo": "SCO 05",
     "pais": "Escocia",
     "pegada": true
+  },
+  {
+    "codigo": "SCO 06",
+    "pais": "Escocia",
+    "pegada": true
   }
 ]
