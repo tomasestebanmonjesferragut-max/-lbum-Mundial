@@ -1068,5 +1068,10 @@
     "codigo": "ESP 18",
     "pais": "España",
     "pegada": true
+  },
+  {
+    "codigo": "CPV 04",
+    "pais": "Cabo Verde",
+    "pegada": true
   }
 ]
