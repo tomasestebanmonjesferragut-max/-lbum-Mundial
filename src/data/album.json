@@ -843,5 +843,10 @@
     "codigo": "SWE 05",
     "pais": "Suecia",
     "pegada": true
+  },
+  {
+    "codigo": "SWE 08",
+    "pais": "Suecia",
+    "pegada": true
   }
 ]
