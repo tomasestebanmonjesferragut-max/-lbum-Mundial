@@ -1733,5 +1733,10 @@
     "codigo": "PAN 12",
     "pais": "Panamá",
     "pegada": true
+  },
+  {
+    "codigo": "PAN 16",
+    "pais": "Panamá",
+    "pegada": true
   }
 ]
