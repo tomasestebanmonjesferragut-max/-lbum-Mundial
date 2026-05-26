@@ -558,5 +558,10 @@
     "codigo": "PAR 08",
     "pais": "Paraguay",
     "pegada": true
+  },
+  {
+    "codigo": "PAR 12",
+    "pais": "Paraguay",
+    "pegada": true
   }
 ]
