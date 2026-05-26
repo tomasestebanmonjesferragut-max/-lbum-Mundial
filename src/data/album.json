@@ -1748,5 +1748,10 @@
     "codigo": "PAN 20",
     "pais": "Panamá",
     "pegada": true
+  },
+  {
+    "codigo": "MEX 15",
+    "pais": "México",
+    "pegada": true
   }
 ]
