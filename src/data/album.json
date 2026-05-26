@@ -1618,5 +1618,10 @@
     "codigo": "ENG 20",
     "pais": "Inglaterra",
     "pegada": true
+  },
+  {
+    "codigo": "CRO 01",
+    "pais": "Croacia",
+    "pegada": true
   }
 ]
