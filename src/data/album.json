@@ -1243,5 +1243,10 @@
     "codigo": "SEN 08",
     "pais": "Senegal",
     "pegada": true
+  },
+  {
+    "codigo": "SEN 13",
+    "pais": "Senegal",
+    "pegada": true
   }
 ]
