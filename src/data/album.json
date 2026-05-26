@@ -178,5 +178,15 @@
     "codigo": "CAN 13",
     "pais": "Canadá",
     "pegada": true
+  },
+  {
+    "codigo": "CAN 14",
+    "pais": "Canadá",
+    "pegada": true
+  },
+  {
+    "codigo": "CAN 15",
+    "pais": "Canadá",
+    "pegada": true
   }
 ]
