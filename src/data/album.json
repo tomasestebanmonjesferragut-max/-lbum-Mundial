@@ -1273,5 +1273,10 @@
     "codigo": "IRQ 20",
     "pais": "Irak",
     "pegada": true
+  },
+  {
+    "codigo": "NOR 06",
+    "pais": "Noruega",
+    "pegada": true
   }
 ]
