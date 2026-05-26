@@ -1723,5 +1723,10 @@
     "codigo": "PAN 04",
     "pais": "Panamá",
     "pegada": true
+  },
+  {
+    "codigo": "PAN 08",
+    "pais": "Panamá",
+    "pegada": true
   }
 ]
