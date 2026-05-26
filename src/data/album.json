@@ -1278,5 +1278,10 @@
     "codigo": "NOR 06",
     "pais": "Noruega",
     "pegada": true
+  },
+  {
+    "codigo": "NOR 10",
+    "pais": "Noruega",
+    "pegada": true
   }
 ]
