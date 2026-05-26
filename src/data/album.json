@@ -1493,5 +1493,10 @@
     "codigo": "COD 20",
     "pais": "R.D. del Congo",
     "pegada": true
+  },
+  {
+    "codigo": "UZB 08",
+    "pais": "Uzbekistán",
+    "pegada": true
   }
 ]
