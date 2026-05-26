@@ -498,5 +498,10 @@
     "codigo": "USA 06",
     "pais": "Estados Unidos",
     "pegada": true
+  },
+  {
+    "codigo": "USA 07",
+    "pais": "Estados Unidos",
+    "pegada": true
   }
 ]
