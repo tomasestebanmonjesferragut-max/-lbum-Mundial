@@ -1103,5 +1103,10 @@
     "codigo": "CPV 14",
     "pais": "Cabo Verde",
     "pegada": true
+  },
+  {
+    "codigo": "CPV 19",
+    "pais": "Cabo Verde",
+    "pegada": true
   }
 ]
