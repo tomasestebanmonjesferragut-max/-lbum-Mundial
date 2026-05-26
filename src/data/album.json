@@ -1528,5 +1528,10 @@
     "codigo": "UZB 20",
     "pais": "Uzbekistán",
     "pegada": true
+  },
+  {
+    "codigo": "COL 01",
+    "pais": "Colombia",
+    "pegada": true
   }
 ]
