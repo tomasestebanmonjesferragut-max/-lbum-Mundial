@@ -1673,5 +1673,10 @@
     "codigo": "CRO 19",
     "pais": "Croacia",
     "pegada": true
+  },
+  {
+    "codigo": "GHA 01",
+    "pais": "Ghana",
+    "pegada": true
   }
 ]
