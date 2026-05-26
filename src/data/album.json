@@ -1418,5 +1418,10 @@
     "codigo": "JOR 14",
     "pais": "Jordania",
     "pegada": true
+  },
+  {
+    "codigo": "POR 01",
+    "pais": "Portugal",
+    "pegada": true
   }
 ]
