@@ -103,5 +103,10 @@
     "codigo": "CZE 02",
     "pais": "República Checa",
     "pegada": true
+  },
+  {
+    "codigo": "CZE 04",
+    "pais": "República Checa",
+    "pegada": true
   }
 ]
