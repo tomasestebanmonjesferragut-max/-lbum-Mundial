@@ -143,5 +143,10 @@
     "codigo": "CZE 19",
     "pais": "República Checa",
     "pegada": true
+  },
+  {
+    "codigo": "CAN 03",
+    "pais": "Canadá",
+    "pegada": true
   }
 ]
