@@ -48,5 +48,10 @@
     "codigo": "MEX 17",
     "pais": "México",
     "pegada": true
+  },
+  {
+    "codigo": "RSA 04",
+    "pais": "Sudáfrica",
+    "pegada": true
   }
 ]
