@@ -1,0 +1,18 @@
+{
+  "name": "album-mundial-2026",
+  "version": "1.0.0",
+  "description": "Gestor de láminas repetidas para el Mundial 2026",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.22.2",
+    "simple-git": "^3.36.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,165 @@
+:root {
+    --bg-deep: #020617;
+    --panel-bg: #0f172a;
+    --accent-blue: #2563eb;
+    --neon-cyan: #00f2fe;
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    padding: 20px;
+    background-color: var(--bg-deep); 
+    color: var(--text-main);
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--panel-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 15px;
+}
+
+.logo {
+    max-width: 80px; 
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px var(--neon-cyan));
+}
+
+h1, h3 {
+    color: var(--neon-cyan);
+    letter-spacing: 1px;
+    margin: 5px 0;
+}
+
+.panel { 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+input { 
+    display: block; 
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 15px; 
+    padding: 12px; 
+    background-color: rgba(0, 242, 254, 0.05);
+    border: 1px solid var(--accent-blue);
+    color: var(--text-main);
+    border-radius: 5px;
+    font-size: 16px;
+    transition: box-shadow 0.3s;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    border-color: var(--neon-cyan);
+}
+
+.row { 
+    display: flex; 
+    gap: 15px; 
+    align-items: flex-start;
+}
+
+button { 
+    padding: 12px; 
+    cursor: pointer; 
+    background: var(--accent-blue); 
+    color: white; 
+    border: none; 
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+
+.btn-guardar { background: #059669; }
+.btn-guardar:hover { background: #047857; box-shadow: 0 0 15px rgba(5, 150, 105, 0.5); }
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 10px; 
+}
+
+th, td { 
+    border: 1px solid rgba(37, 99, 235, 0.3); 
+    padding: 12px; 
+    text-align: center; 
+}
+
+th { 
+    background-color: rgba(37, 99, 235, 0.1); 
+    color: var(--neon-cyan); 
+}
+
+/* Estilos para la Ventana Modal Personalizada */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(2, 6, 23, 0.85); 
+    backdrop-filter: blur(5px); /* Efecto de cristal */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--panel-bg); 
+    padding: 30px;
+    border: 1px solid var(--neon-cyan); 
+    border-radius: 12px; 
+    width: 320px;
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); 
+    text-align: center;
+    animation: aparecer 0.3s ease-out;
+}
+
+.modal-acciones { 
+    display: flex; 
+    justify-content: space-between; 
+    gap: 15px;
+}
+
+.btn-cancelar { 
+    background: #475569; 
+    width: 100%;
+}
+.btn-cancelar:hover { 
+    background: #334155; 
+    box-shadow: 0 0 10px rgba(71, 85, 105, 0.5);
+}
+
+.btn-guardar { width: 100%; }
+
+@keyframes aparecer {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#listaLaminas {
+    padding: 15px;
+}

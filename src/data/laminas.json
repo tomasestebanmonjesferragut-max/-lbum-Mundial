@@ -1,0 +1,222 @@
+[
+  {
+    "codigo": "PAN 20",
+    "pais": "Panamá",
+    "cantidad": 1
+  },
+  {
+    "codigo": "PAN 01",
+    "pais": "Panamá",
+    "cantidad": 1
+  },
+  {
+    "codigo": "KOR 13",
+    "pais": "Corea del Sur",
+    "cantidad": 1
+  },
+  {
+    "codigo": "UZB 13",
+    "pais": "Uzbekistán",
+    "cantidad": 1
+  },
+  {
+    "codigo": "UZB 18",
+    "pais": "Uzbekistán",
+    "cantidad": 1
+  },
+  {
+    "codigo": "URU 15",
+    "pais": "Uruguay",
+    "cantidad": 1
+  },
+  {
+    "codigo": "URU 18",
+    "pais": "Uruguay",
+    "cantidad": 1
+  },
+  {
+    "codigo": "EGY 10",
+    "pais": "Egipto",
+    "cantidad": 1
+  },
+  {
+    "codigo": "EGY 15",
+    "pais": "Egipto",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CPV 14",
+    "pais": "Cabo Verde",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CPV 19",
+    "pais": "Cabo Verde",
+    "cantidad": 1
+  },
+  {
+    "codigo": "NZL 18",
+    "pais": "Nueva Zelanda",
+    "cantidad": 1
+  },
+  {
+    "codigo": "NZL 13",
+    "pais": "Nueva Zelanda",
+    "cantidad": 1
+  },
+  {
+    "codigo": "USA 07",
+    "pais": "Estados Unidos",
+    "cantidad": 1
+  },
+  {
+    "codigo": "USA 20",
+    "pais": "Estados Unidos",
+    "cantidad": 1
+  },
+  {
+    "codigo": "USA 04",
+    "pais": "Estados Unidos",
+    "cantidad": 1
+  },
+  {
+    "codigo": "SEN 01",
+    "pais": "Senegal",
+    "cantidad": 1
+  },
+  {
+    "codigo": "ALG 18",
+    "pais": "Argelia",
+    "cantidad": 1
+  },
+  {
+    "codigo": "COD 07",
+    "pais": "R.D. del Congo",
+    "cantidad": 1
+  },
+  {
+    "codigo": "GHA 19",
+    "pais": "Ghana",
+    "cantidad": 2
+  },
+  {
+    "codigo": "JOR 14",
+    "pais": "Jordania",
+    "cantidad": 1
+  },
+  {
+    "codigo": "BEL 12",
+    "pais": "Bélgica",
+    "cantidad": 1
+  },
+  {
+    "codigo": "BEL 17",
+    "pais": "Bélgica",
+    "cantidad": 1
+  },
+  {
+    "codigo": "TUN 12",
+    "pais": "Túnez",
+    "cantidad": 1
+  },
+  {
+    "codigo": "TUN 04",
+    "pais": "Túnez",
+    "cantidad": 2
+  },
+  {
+    "codigo": "TUN 07",
+    "pais": "Túnez",
+    "cantidad": 1
+  },
+  {
+    "codigo": "TUN 16",
+    "pais": "Túnez",
+    "cantidad": 1
+  },
+  {
+    "codigo": "JPN 16",
+    "pais": "Japón",
+    "cantidad": 1
+  },
+  {
+    "codigo": "JPN 11",
+    "pais": "Japón",
+    "cantidad": 1
+  },
+  {
+    "codigo": "QAT 19",
+    "pais": "Catar",
+    "cantidad": 1
+  },
+  {
+    "codigo": "QAT 10",
+    "pais": "Catar",
+    "cantidad": 1
+  },
+  {
+    "codigo": "QAT 15",
+    "pais": "Catar",
+    "cantidad": 1
+  },
+  {
+    "codigo": "PAR 01",
+    "pais": "Paraguay",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CZE 05",
+    "pais": "República Checa",
+    "cantidad": 2
+  },
+  {
+    "codigo": "CZE 04",
+    "pais": "República Checa",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CZE 08",
+    "pais": "República Checa",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CZE 14",
+    "pais": "República Checa",
+    "cantidad": 1
+  },
+  {
+    "codigo": "BIH 14",
+    "pais": "Bosnia y Herzegovina",
+    "cantidad": 1
+  },
+  {
+    "codigo": "BIH 05",
+    "pais": "Bosnia y Herzegovina",
+    "cantidad": 1
+  },
+  {
+    "codigo": "BIH 09",
+    "pais": "Bosnia y Herzegovina",
+    "cantidad": 1
+  },
+  {
+    "codigo": "TUR 11",
+    "pais": "Turquía",
+    "cantidad": 1
+  },
+  {
+    "codigo": "CUW 20",
+    "pais": "Curazao",
+    "cantidad": 1
+  },
+  {
+    "codigo": "ENG 11",
+    "pais": "Inglaterra",
+    "cantidad": 1
+  },
+  {
+    "codigo": "SUI 18",
+    "pais": "Suiza",
+    "cantidad": 1
+  }
+]
