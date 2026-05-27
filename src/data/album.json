@@ -1743,5 +1743,10 @@
     "codigo": "FWC 07",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "PAN 17",
+    "pais": "Panamá",
+    "pegada": true
   }
 ]
