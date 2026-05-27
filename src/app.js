@@ -15,6 +15,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Conectar las rutas de las láminas
 app.use('/api', apiRoutes);
 
+// REDIRECCIÓN AUTOMÁTICA: Si entras a localhost:3000, te lleva al gestor
+app.get('/', (req, res) => {
+    res.redirect('/laminas/index.html');
+});
+
 // Iniciar servidor
 const PORT = 3000;
 app.listen(PORT, () => {
