@@ -158,5 +158,10 @@
     "codigo": "ALG 18",
     "pais": "Argelia",
     "cantidad": 1
+  },
+  {
+    "codigo": "URU 18",
+    "pais": "Uruguay",
+    "cantidad": 1
   }
 ]
