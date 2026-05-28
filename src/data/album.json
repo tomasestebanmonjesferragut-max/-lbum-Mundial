@@ -1818,5 +1818,10 @@
     "codigo": "FWC 04",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "SCO 20",
+    "pais": "Escocia",
+    "pegada": true
   }
 ]
