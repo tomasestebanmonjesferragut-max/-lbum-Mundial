@@ -78,5 +78,10 @@
     "codigo": "CPV 19",
     "pais": "Cabo Verde",
     "cantidad": 1
+  },
+  {
+    "codigo": "CZE 05",
+    "pais": "República Checa",
+    "cantidad": 1
   }
 ]
