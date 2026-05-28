@@ -218,5 +218,10 @@
     "codigo": "UZB 13",
     "pais": "Uzbekistán",
     "cantidad": 1
+  },
+  {
+    "codigo": "KOR 13",
+    "pais": "Corea del Sur",
+    "cantidad": 2
   }
 ]
