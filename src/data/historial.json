@@ -1,5 +1,15 @@
 [
   {
+    "id": "15jucq8",
+    "ts": 1780008368946,
+    "tipo": "remove",
+    "fuente": "laminas",
+    "codigo": "FWC 00",
+    "pais": "FIFA",
+    "cantidad": 0,
+    "detalle": "Eliminada del stock"
+  },
+  {
     "id": "7194bub",
     "ts": 1780008359749,
     "tipo": "edit",
