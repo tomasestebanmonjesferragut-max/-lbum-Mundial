@@ -168,5 +168,10 @@
     "codigo": "SUI 18",
     "pais": "Suiza",
     "cantidad": 1
+  },
+  {
+    "codigo": "UZB 18",
+    "pais": "Uzbekistán",
+    "cantidad": 1
   }
 ]
