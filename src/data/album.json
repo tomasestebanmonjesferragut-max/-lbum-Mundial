@@ -1778,5 +1778,10 @@
     "codigo": "UZB 02",
     "pais": "Uzbekistán",
     "pegada": true
+  },
+  {
+    "codigo": "TUR 16",
+    "pais": "Turquía",
+    "pegada": true
   }
 ]
