@@ -163,5 +163,10 @@
     "codigo": "URU 18",
     "pais": "Uruguay",
     "cantidad": 1
+  },
+  {
+    "codigo": "SUI 18",
+    "pais": "Suiza",
+    "cantidad": 1
   }
 ]
