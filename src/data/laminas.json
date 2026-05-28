@@ -153,5 +153,10 @@
     "codigo": "GHA 19",
     "pais": "Ghana",
     "cantidad": 1
+  },
+  {
+    "codigo": "ALG 18",
+    "pais": "Argelia",
+    "cantidad": 1
   }
 ]
