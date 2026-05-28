@@ -3,5 +3,10 @@
     "codigo": "TUR 12",
     "pais": "Turquía",
     "cantidad": 1
+  },
+  {
+    "codigo": "CIV 02",
+    "pais": "Costa de Marfil",
+    "cantidad": 1
   }
 ]
