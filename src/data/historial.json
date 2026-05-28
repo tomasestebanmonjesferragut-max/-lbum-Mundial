@@ -1,5 +1,15 @@
 [
   {
+    "id": "i655ixc",
+    "ts": 1780008371479,
+    "tipo": "remove",
+    "fuente": "laminas",
+    "codigo": "FWC 01",
+    "pais": "FIFA",
+    "cantidad": 0,
+    "detalle": "Eliminada del stock"
+  },
+  {
     "id": "15jucq8",
     "ts": 1780008368946,
     "tipo": "remove",
