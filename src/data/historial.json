@@ -1,5 +1,15 @@
 [
   {
+    "id": "7194bub",
+    "ts": 1780008359749,
+    "tipo": "edit",
+    "fuente": "laminas",
+    "codigo": "FWC 01",
+    "pais": "FIFA",
+    "cantidad": 1,
+    "detalle": "0 - ahora 1"
+  },
+  {
     "id": "6qtygb7",
     "ts": 1780008340836,
     "tipo": "add",
