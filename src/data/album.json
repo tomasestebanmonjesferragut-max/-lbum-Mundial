@@ -1818,5 +1818,10 @@
     "codigo": "FWC 04",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "TUR 13",
+    "pais": "Turquía",
+    "pegada": true
   }
 ]
