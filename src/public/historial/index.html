@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial · Mundial 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+
+<nav class="topnav">
+    <a class="nav-brand" href="../laminas/index.html">
+        <span class="ball">⚽</span>
+        <span class="brand-text">Mundial <b>2026</b></span>
+    </a>
+    <div class="nav-links">
+        <a href="../laminas/index.html" class="nav-link">Repetidas</a>
+        <a href="../album/index.html" class="nav-link">Mi Álbum</a>
+        <a href="index.html" class="nav-link active">Historial</a>
+        <a href="../estadisticas/index.html" class="nav-link">Estadísticas</a>
+    </div>
+</nav>
+
+<main class="main">
+    <div class="page-hero">
+        <div class="hero-label">LOG COMPLETO</div>
+        <h1>Historial de Cambios</h1>
+        <p>Registro de todas las láminas subidas, modificadas y eliminadas</p>
+    </div>
+
+    <div class="controls-bar">
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">Todo</button>
+            <button class="filter-btn" data-filter="laminas">Repetidas</button>
+            <button class="filter-btn" data-filter="album">Álbum</button>
+            <button class="filter-btn" data-filter="add">Agregadas</button>
+            <button class="filter-btn" data-filter="remove">Eliminadas</button>
+            <button class="filter-btn" data-filter="edit">Modificadas</button>
+        </div>
+        <div class="search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Buscar país o código...">
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-chip" id="chip-total">
+            <span class="chip-num" id="stat-total">0</span>
+            <span class="chip-label">acciones totales</span>
+        </div>
+        <div class="stat-chip green" id="chip-add">
+            <span class="chip-num" id="stat-add">0</span>
+            <span class="chip-label">agregadas</span>
+        </div>
+        <div class="stat-chip red" id="chip-remove">
+            <span class="chip-num" id="stat-remove">0</span>
+            <span class="chip-label">eliminadas</span>
+        </div>
+        <div class="stat-chip blue" id="chip-edit">
+            <span class="chip-num" id="stat-edit">0</span>
+            <span class="chip-label">modificadas</span>
+        </div>
+    </div>
+
+    <div class="log-container" id="logContainer">
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <span>Cargando historial...</span>
+        </div>
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-icon">📋</div>
+        <p>No hay registros que coincidan con el filtro</p>
+    </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

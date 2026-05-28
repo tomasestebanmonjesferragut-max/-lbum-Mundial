@@ -1,3 +1,5 @@
+const { registrarHistorial } = require('./historialLogger');
+const historialPath = path.join(__dirname, '../data/historial.json');
 const fs = require('fs');
 const path = require('path');
 const simpleGit = require('simple-git');
@@ -8,8 +10,8 @@ const dataPath = path.join(__dirname, '../data/laminas.json');
 
 // Fire-and-forget: responde al cliente al instante, guarda en GitHub en segundo plano
 const guardarEnGitHub = () => {
-    git.add(dataPath)
-        .then(() => git.commit('Auto-update: Lote de láminas actualizado'))
+    git.add([dataPath, historialPath]) // Añadido el log al commit
+        .then(() => git.commit('Auto-update: Lote de láminas y log actualizado'))
         .then(() => git.push('origin', 'main'))
         .catch(err => console.error('Error Git:', err));
 };
@@ -56,8 +58,10 @@ const agregarLamina = (req, res) => {
             const index = laminas.findIndex(l => l.codigo === codigoFormateado);
             if (index !== -1) {
                 laminas[index].cantidad += 1;
+                registrarHistorial({ tipo: 'edit', fuente: 'laminas', codigo: codigoFormateado, pais: paisInfo.nombre, cantidad: laminas[index].cantidad, detalle: `+1 - ahora ${laminas[index].cantidad}` });
             } else {
                 laminas.push({ codigo: codigoFormateado, pais: paisInfo.nombre, cantidad: 1 });
+                registrarHistorial({ tipo: 'add', fuente: 'laminas', codigo: codigoFormateado, pais: paisInfo.nombre, cantidad: 1, detalle: '+1 unidades' });
             }
             agregadas++;
         }
@@ -80,6 +84,13 @@ const agregarLamina = (req, res) => {
 const eliminarLamina = (req, res) => {
     const codigo = req.params.codigo;
     let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+    
+    // Buscar la lámina antes de eliminarla para registrar el evento
+    const lamina = laminas.find(l => l.codigo === codigo);
+    if (lamina) {
+        registrarHistorial({ tipo: 'remove', fuente: 'laminas', codigo: lamina.codigo, pais: lamina.pais, cantidad: 0, detalle: 'Eliminada del stock' });
+    }
+
     laminas = laminas.filter(l => l.codigo !== codigo);
     fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
     res.status(200).json({ mensaje: 'Eliminada' });
@@ -93,11 +104,17 @@ const editarLamina = (req, res) => {
     const index = laminas.findIndex(l => l.codigo === codigo);
     
     if (index !== -1) {
+        const oldQty = laminas[index].cantidad;
+        const delta = cantidad - oldQty;
+
         if (cantidad <= 0) {
+            registrarHistorial({ tipo: 'remove', fuente: 'laminas', codigo: laminas[index].codigo, pais: laminas[index].pais, cantidad: 0, detalle: 'Eliminada del stock' });
             laminas.splice(index, 1);
         } else {
             laminas[index].cantidad = cantidad;
+            registrarHistorial({ tipo: 'edit', fuente: 'laminas', codigo: laminas[index].codigo, pais: laminas[index].pais, cantidad: cantidad, detalle: `${delta > 0 ? '+' : ''}${delta} - ahora ${cantidad}` });
         }
+        
         fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
         res.status(200).json({ mensaje: 'Actualizada' });
         guardarEnGitHub(); // sin await

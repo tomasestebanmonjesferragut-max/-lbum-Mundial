@@ -1,3 +1,4 @@
+const { obtenerHistorial } = require('../controllers/historialLogger');
 const express = require('express');
 const router = express.Router();
 const { listarLaminas, agregarLamina, eliminarLamina, editarLamina, obtenerDiccionario } = require('../controllers/laminaController');
@@ -14,5 +15,6 @@ router.put('/laminas/:codigo', editarLamina);
 router.get('/album', listarAlbum);
 router.post('/album', agregarAlbum);
 router.delete('/album/:codigo', quitarAlbum);
+router.get('/historial', obtenerHistorial);
 
 module.exports = router;

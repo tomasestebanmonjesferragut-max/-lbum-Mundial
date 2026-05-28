@@ -7,16 +7,15 @@ let diccionario = {};
 let modalModo = '';
 let modalDatos = {};
 let toastTimer = null;
+let allLog = [];
+let currentFilter = 'all';
+let currentSearch = '';
 
 // ── INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const resDic = await fetch('/api/diccionario');
-        if (resDic.ok) diccionario = await resDic.json();
-    } catch(e) { console.warn('No se pudo cargar el diccionario'); }
-
-    await cargarLaminas();
-    configurarTeclado();
+    await cargarHistorial();
+    renderLog();
+    setupControls();
 });
 
 // ── TECLADO ───────────────────────────────────────────

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Estadísticas · Mundial 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+    <a class="nav-brand" href="../laminas/index.html">
+        <span class="brand-text">Mundial <b>2026</b></span>
+    </a>
+    <div class="nav-links">
+        <a href="../laminas/index.html" class="nav-link">Repetidas</a>
+        <a href="../album/index.html" class="nav-link">Mi Álbum</a>
+        <a href="../historial/index.html" class="nav-link">Historial</a>
+        <a href="index.html" class="nav-link active">Estadísticas</a>
+    </div>
+</nav>
+
+<main class="main">
+    <div class="page-hero">
+        <div class="hero-label">DASHBOARD ANALÍTICO</div>
+        <h1>Estadísticas de Colección</h1>
+        <p>Analiza tu progreso, láminas repetidas y equipos más completos</p>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-icon blue">📊</div>
+            <div class="kpi-info">
+                <div class="kpi-value" id="kpi-progreso">0%</div>
+                <div class="kpi-label">Progreso General</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon green">📖</div>
+            <div class="kpi-info">
+                <div class="kpi-value" id="kpi-pegadas">0</div>
+                <div class="kpi-label">Láminas Pegadas</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon amber">🔄</div>
+            <div class="kpi-info">
+                <div class="kpi-value" id="kpi-repetidas">0</div>
+                <div class="kpi-label">Total Repetidas</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon red">🎯</div>
+            <div class="kpi-info">
+                <div class="kpi-value" id="kpi-faltantes">0</div>
+                <div class="kpi-label">Para Completar</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3>Estado del Álbum</h3>
+                <span class="chart-badge">Global</span>
+            </div>
+            <div class="chart-body donut-container">
+                <canvas id="progresoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card span-2">
+            <div class="chart-header">
+                <h3>Equipos más Completos</h3>
+                <span class="chart-badge">Top 5</span>
+            </div>
+            <div class="chart-body bar-container">
+                <canvas id="equiposChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-section">
+        <div class="detail-card">
+            <div class="detail-header">
+                <h3>Curiosidades de tu Colección</h3>
+            </div>
+            <ul class="detail-list" id="curiosidadesList">
+                <li class="loading-text">Analizando datos...</li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
