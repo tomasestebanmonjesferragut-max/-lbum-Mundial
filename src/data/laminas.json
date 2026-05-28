@@ -213,5 +213,10 @@
     "codigo": "BEL 17",
     "pais": "Bélgica",
     "cantidad": 1
+  },
+  {
+    "codigo": "UZB 13",
+    "pais": "Uzbekistán",
+    "cantidad": 1
   }
 ]
