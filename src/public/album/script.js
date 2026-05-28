@@ -185,7 +185,7 @@ function updateStats() {
     document.getElementById('statTengo').textContent  = tengo;
     document.getElementById('statFaltan').textContent = total - tengo;
     document.getElementById('progBar').style.width    = pct+'%';
-    document.getElementById('progPct').textContent    = pct+'%';
+    document.getElementById('statPct').textContent    = pct+'%'; // <-- Aquí está el cambio
 }
 
 // NUEVO FILTRO VISUAL: En lugar de ocultar, cambiamos la clase del contenedor maestro
