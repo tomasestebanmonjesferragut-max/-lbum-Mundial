@@ -1753,5 +1753,10 @@
     "codigo": "KOR 14",
     "pais": "Corea del Sur",
     "pegada": true
+  },
+  {
+    "codigo": "EGY 09",
+    "pais": "Egipto",
+    "pegada": true
   }
 ]
