@@ -1748,5 +1748,10 @@
     "codigo": "PAN 17",
     "pais": "Panamá",
     "pegada": true
+  },
+  {
+    "codigo": "KOR 14",
+    "pais": "Corea del Sur",
+    "pegada": true
   }
 ]
