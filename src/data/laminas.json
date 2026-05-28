@@ -273,5 +273,10 @@
     "codigo": "KOR 01",
     "pais": "Corea del Sur",
     "cantidad": 1
+  },
+  {
+    "codigo": "PAN 01",
+    "pais": "Panamá",
+    "cantidad": 1
   }
 ]
