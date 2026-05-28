@@ -98,5 +98,10 @@
     "codigo": "QAT 19",
     "pais": "Catar",
     "cantidad": 1
+  },
+  {
+    "codigo": "CZE 14",
+    "pais": "República Checa",
+    "cantidad": 1
   }
 ]
