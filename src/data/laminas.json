@@ -63,5 +63,10 @@
     "codigo": "COD 07",
     "pais": "R.D. del Congo",
     "cantidad": 1
+  },
+  {
+    "codigo": "USA 07",
+    "pais": "Estados Unidos",
+    "cantidad": 1
   }
 ]
