@@ -2,73 +2,107 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Repetidas · Mundial 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="topnav">
-    <span class="topnav-brand">⚽ Mundial 2026</span>
-    <div class="topnav-links">
-        <a href="index.html" class="active">Repetidas</a>
-        <a href="../album/index.html">Mi Álbum</a>
+    <a class="nav-brand" href="index.html">
+        <span class="ball">⚽</span>
+        <span class="brand-text">Mundial <b>2026</b></span>
+    </a>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link active">Repetidas</a>
+        <a href="../album/index.html" class="nav-link">Mi Álbum</a>
     </div>
 </nav>
 
-<div class="container">
-    <div class="header">
+<main class="main">
+
+    <div class="page-hero">
         <h1>Láminas Repetidas</h1>
-        <h3 style="color: var(--text-dim);">Gestión de intercambio · Mundial 2026</h3>
+        <p>Gestión de intercambio · FIFA World Cup 2026</p>
     </div>
 
-    <div class="panel">
-        <h3>Ingresar Láminas</h3>
-        <div style="margin-bottom:8px; color: var(--text-dim); font-size:0.85rem;">
-            Podés ingresar una o varias separadas por coma. Ej: <b style="color:var(--neon-cyan)">MEX1, ARG12, SCO5-8</b>
+    <div class="card card-input">
+        <div class="card-label">Ingresar láminas</div>
+        <div class="input-group">
+            <input
+                type="text"
+                id="codigoLamina"
+                placeholder="MEX1, ARG12, SCO5-8 ..."
+                autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"
+                oninput="verificarPrefijo()"
+            >
+            <button class="btn btn-primary" id="btnAgregar" onclick="agregarLamina()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                Ingresar
+            </button>
+            <button class="btn btn-secondary" id="btnModificar" onclick="abrirModificarManual()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Modificar
+            </button>
         </div>
-        <div class="input-row">
-            <input type="text" id="codigoLamina"
-                   placeholder="Ej: MEX1, ARG12"
-                   style="text-transform:uppercase; flex:1;"
-                   oninput="verificarPrefijo()"
-                   autocomplete="off" autocorrect="off" spellcheck="false">
-            <button class="btn-agregar" id="btnAgregar" onclick="agregarLamina()">+ INGRESAR</button>
-            <button class="btn-modificar" id="btnModificar" onclick="abrirModificarManual()">✎ MODIFICAR</button>
-        </div>
-        <small id="ayudaPais" class="ayuda-hint"></small>
+        <div id="ayudaPais" class="hint-text"></div>
+        <div class="input-hint">Podés ingresar varias separadas por coma · También rangos: <code>SCO5-8</code></div>
     </div>
 
-    <div class="panel">
-        <div class="panel-hd">
-            <h3 style="margin:0;">Mis Láminas Repetidas</h3>
-            <input type="text" id="buscador" placeholder="🔍 Buscar..." onkeyup="filtrarLaminas()" class="buscador-inline">
+    <div class="card card-list">
+        <div class="list-header">
+            <div class="list-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                Mis Láminas Repetidas
+                <span class="count-badge" id="contadorTotal">0</span>
+            </div>
+            <div class="list-actions">
+                <div class="search-wrap">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="buscador" placeholder="Buscar país..." onkeyup="filtrarLaminas()">
+                </div>
+                <button class="btn btn-download" onclick="descargarImagen()" title="Descargar imagen de mis repetidas">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Descargar
+                </button>
+            </div>
         </div>
-        <div id="listaLaminas" style="margin-top:15px;"></div>
+        <div id="listaLaminas" class="lista-body"></div>
     </div>
-</div>
+
+</main>
 
 <!-- MODAL MODIFICAR -->
-<div id="modalModificar" class="modal">
-    <div class="modal-content">
-        <h3 id="modalTitulo" style="color:var(--neon-cyan);margin-top:0;">Modificar Lámina</h3>
-        <p id="modalMensaje" style="color:var(--text-dim);font-size:0.9em;margin-bottom:20px;"></p>
-        <div id="bloqueNumero" style="display:none;text-align:left;margin-bottom:15px;">
-            <label style="color:var(--text-main);font-size:0.9em;font-weight:bold;">Código (ej: MEX1):</label>
-            <input type="text" id="modalInputNumero" placeholder="Ej: MEX1" style="margin-top:8px;text-transform:uppercase;">
+<div id="modalModificar" class="modal-backdrop">
+    <div class="modal-box">
+        <button class="modal-close" onclick="cerrarModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <h3 id="modalTitulo">Modificar Lámina</h3>
+        <p id="modalMensaje"></p>
+        <div id="bloqueNumero" style="display:none;" class="field-group">
+            <label>Código de la lámina</label>
+            <input type="text" id="modalInputNumero" placeholder="Ej: MEX1" autocomplete="off" autocapitalize="characters">
         </div>
-        <div style="text-align:left;margin-bottom:20px;">
-            <label style="color:var(--text-main);font-size:0.9em;font-weight:bold;">Nueva cantidad total:</label>
-            <input type="number" id="modalInputCantidad" min="0" placeholder="Ej: 2" style="margin-top:8px;">
+        <div class="field-group">
+            <label>Nueva cantidad</label>
+            <input type="number" id="modalInputCantidad" min="0" placeholder="0 = eliminar">
         </div>
-        <div class="modal-acciones">
-            <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-            <button class="btn-guardar" onclick="procesarModal()">Guardar</button>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="procesarModal()">Guardar cambios</button>
         </div>
     </div>
 </div>
 
+<!-- TOAST -->
 <div id="toast" class="toast"></div>
+
+<!-- CANVAS DE DESCARGA (oculto) -->
+<div id="exportContainer" style="position:fixed;left:-9999px;top:0;z-index:-1;"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="script.js"></script>

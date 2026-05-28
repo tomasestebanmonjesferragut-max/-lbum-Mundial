@@ -6,14 +6,12 @@ const diccionario = require('../data/diccionarioMundial');
 const git = simpleGit();
 const dataPath = path.join(__dirname, '../data/laminas.json');
 
-const guardarEnGitHub = async () => {
-    try {
-        await git.add(dataPath);
-        await git.commit('Auto-update: Lote de láminas actualizado');
-        await git.push('origin', 'main'); 
-    } catch (error) {
-        console.error('Error Git:', error);
-    }
+// Fire-and-forget: responde al cliente al instante, guarda en GitHub en segundo plano
+const guardarEnGitHub = () => {
+    git.add(dataPath)
+        .then(() => git.commit('Auto-update: Lote de láminas actualizado'))
+        .then(() => git.push('origin', 'main'))
+        .catch(err => console.error('Error Git:', err));
 };
 
 const obtenerDiccionario = (req, res) => res.json(diccionario);
@@ -23,9 +21,8 @@ const listarLaminas = (req, res) => {
     res.status(200).json(laminas);
 };
 
-const agregarLamina = async (req, res) => {
+const agregarLamina = (req, res) => {
     try {
-        // Soportar un array de códigos o un solo código (retrocompatibilidad)
         const codigosRecibidos = req.body.codigos || (req.body.codigo ? [req.body.codigo] : []);
         
         if (!codigosRecibidos || codigosRecibidos.length === 0) {
@@ -36,13 +33,9 @@ const agregarLamina = async (req, res) => {
         let agregadas = 0;
         let errores = [];
 
-        // Procesar todas las láminas de la lista
         for (let codigoRaw of codigosRecibidos) {
             const match = codigoRaw.toUpperCase().replace(/\s+/g, '').match(/^([A-Z]{2,3})(00|\d{1,2})$/);
-            if (!match) {
-                errores.push(`${codigoRaw}: Formato inválido`);
-                continue;
-            }
+            if (!match) { errores.push(`${codigoRaw}: Formato inválido`); continue; }
 
             let prefijo = match[1];
             let numeroStr = match[2];
@@ -52,21 +45,14 @@ const agregarLamina = async (req, res) => {
             const codigoFormateado = `${prefijo} ${numeroStr}`;
             const paisInfo = diccionario[prefijo];
 
-            // Validaciones
-            if (!paisInfo) {
-                errores.push(`${codigoFormateado}: País no existe`);
-                continue;
-            }
+            if (!paisInfo) { errores.push(`${codigoFormateado}: País no existe`); continue; }
             if (numeroStr !== "00" && (num < 1 || num > paisInfo.max)) {
-                errores.push(`${codigoFormateado}: Límite es ${paisInfo.max}`);
-                continue;
+                errores.push(`${codigoFormateado}: Límite es ${paisInfo.max}`); continue;
             }
             if (numeroStr === "00" && (!paisInfo.extra || !paisInfo.extra.includes("00"))) {
-                errores.push(`${codigoFormateado}: No tiene lámina 00`);
-                continue;
+                errores.push(`${codigoFormateado}: No tiene lámina 00`); continue;
             }
 
-            // Sumar a la base de datos
             const index = laminas.findIndex(l => l.codigo === codigoFormateado);
             if (index !== -1) {
                 laminas[index].cantidad += 1;
@@ -76,10 +62,9 @@ const agregarLamina = async (req, res) => {
             agregadas++;
         }
 
-        // Si al menos una funcionó, guardamos todo junto
         if (agregadas > 0) {
             fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
-            await guardarEnGitHub();
+            guardarEnGitHub(); // sin await — respuesta instantánea
         }
 
         res.status(200).json({ 
@@ -92,16 +77,16 @@ const agregarLamina = async (req, res) => {
     }
 };
 
-const eliminarLamina = async (req, res) => {
+const eliminarLamina = (req, res) => {
     const codigo = req.params.codigo;
     let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
     laminas = laminas.filter(l => l.codigo !== codigo);
     fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
     res.status(200).json({ mensaje: 'Eliminada' });
-    await guardarEnGitHub();
+    guardarEnGitHub(); // sin await
 };
 
-const editarLamina = async (req, res) => {
+const editarLamina = (req, res) => {
     const codigo = req.params.codigo;
     const { cantidad } = req.body;
     let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
@@ -115,7 +100,7 @@ const editarLamina = async (req, res) => {
         }
         fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
         res.status(200).json({ mensaje: 'Actualizada' });
-        await guardarEnGitHub();
+        guardarEnGitHub(); // sin await
     } else {
         res.status(404).json({ error: 'No encontrada' });
     }

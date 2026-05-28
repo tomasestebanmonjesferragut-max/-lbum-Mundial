@@ -6,29 +6,24 @@ const diccionario = require('../data/diccionarioMundial');
 const git = simpleGit();
 const dataPath = path.join(__dirname, '../data/album.json');
 
-// Inicializar archivo si no existe
 if (!fs.existsSync(dataPath)) {
     fs.writeFileSync(dataPath, JSON.stringify([], null, 2));
 }
 
-const guardarEnGitHub = async () => {
-    try {
-        await git.add(dataPath);
-        await git.commit('Auto-update: Álbum físico actualizado');
-        await git.push('origin', 'main');
-    } catch (error) {
-        console.error('Error Git (album):', error);
-    }
+// Fire-and-forget: sin await
+const guardarEnGitHub = () => {
+    git.add(dataPath)
+        .then(() => git.commit('Auto-update: Álbum físico actualizado'))
+        .then(() => git.push('origin', 'main'))
+        .catch(err => console.error('Error Git (album):', err));
 };
 
-// GET /api/album  → devuelve todas las láminas del álbum físico
 const listarAlbum = (req, res) => {
     const laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
     res.status(200).json(laminas);
 };
 
-// POST /api/album  → marcar láminas como pegadas (toggle o agregar)
-const agregarAlbum = async (req, res) => {
+const agregarAlbum = (req, res) => {
     try {
         const codigosRecibidos = req.body.codigos || (req.body.codigo ? [req.body.codigo] : []);
 
@@ -42,10 +37,7 @@ const agregarAlbum = async (req, res) => {
 
         for (let codigoRaw of codigosRecibidos) {
             const match = codigoRaw.toUpperCase().replace(/\s+/g, '').match(/^([A-Z]{2,3})(00|\d{1,2})$/);
-            if (!match) {
-                errores.push(`${codigoRaw}: Formato inválido`);
-                continue;
-            }
+            if (!match) { errores.push(`${codigoRaw}: Formato inválido`); continue; }
 
             let prefijo = match[1];
             let numeroStr = match[2];
@@ -63,18 +55,16 @@ const agregarAlbum = async (req, res) => {
                 errores.push(`${codigoFormateado}: No tiene lámina 00`); continue;
             }
 
-            // En el álbum físico cada lámina es 0 (falta) o 1 (pegada) — no repetidas
             const existe = laminas.findIndex(l => l.codigo === codigoFormateado);
             if (existe === -1) {
                 laminas.push({ codigo: codigoFormateado, pais: paisInfo.nombre, pegada: true });
                 agregadas++;
             }
-            // Si ya existe, no hace nada (se usa DELETE para quitar)
         }
 
         if (agregadas > 0) {
             fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
-            await guardarEnGitHub();
+            guardarEnGitHub(); // sin await
         }
 
         res.status(200).json({
@@ -87,13 +77,12 @@ const agregarAlbum = async (req, res) => {
     }
 };
 
-// DELETE /api/album/:codigo  → desmarcar una lámina (no la tengo)
-const quitarAlbum = async (req, res) => {
+const quitarAlbum = (req, res) => {
     const codigo = decodeURIComponent(req.params.codigo);
     let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
     laminas = laminas.filter(l => l.codigo !== codigo);
     fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
-    await guardarEnGitHub();
+    guardarEnGitHub(); // sin await
     res.status(200).json({ mensaje: 'Lámina desmarcada' });
 };
 

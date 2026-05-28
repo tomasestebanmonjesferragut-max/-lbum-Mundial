@@ -1,49 +1,37 @@
 // =====================================================
-//  REPETIDAS - script.js
-//  Validación: usa diccionario del servidor (/api/diccionario)
+//  REPETIDAS - script.js  (refactorizado)
 // =====================================================
 
 let todasLasLaminas = [];
-let diccionario = {};       // Cargado desde el servidor
+let diccionario = {};
 let modalModo = '';
 let modalDatos = {};
 let toastTimer = null;
 
 // ── INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Cargar diccionario desde el servidor (NO desde el script público)
     try {
         const resDic = await fetch('/api/diccionario');
         if (resDic.ok) diccionario = await resDic.json();
     } catch(e) { console.warn('No se pudo cargar el diccionario'); }
 
-    // 2. Cargar láminas
     await cargarLaminas();
-
-    // 3. Eventos de teclado
     configurarTeclado();
 });
 
 // ── TECLADO ───────────────────────────────────────────
 function configurarTeclado() {
-    // Enter en input principal → agregar
     document.getElementById('codigoLamina').addEventListener('keydown', e => {
         if (e.key === 'Enter') { e.preventDefault(); agregarLamina(); }
     });
-    // Enter en modal número → ir a cantidad
     document.getElementById('modalInputNumero').addEventListener('keydown', e => {
         if (e.key === 'Enter') { e.preventDefault(); document.getElementById('modalInputCantidad').focus(); }
     });
-    // Enter en modal cantidad → guardar
     document.getElementById('modalInputCantidad').addEventListener('keydown', e => {
         if (e.key === 'Enter') { e.preventDefault(); procesarModal(); }
     });
-    // Escape → cerrar modal
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            const m = document.getElementById('modalModificar');
-            if (m.style.display === 'flex') cerrarModal();
-        }
+        if (e.key === 'Escape') cerrarModal();
     });
 }
 
@@ -58,7 +46,7 @@ async function cargarLaminas() {
     } catch(e) { console.warn('Error cargando láminas'); }
 }
 
-// ── VERIFICADOR DE PREFIJO EN TIEMPO REAL ────────────
+// ── VERIFICADOR EN TIEMPO REAL ────────────────────────
 function verificarPrefijo() {
     const input = document.getElementById('codigoLamina').value.toUpperCase();
     const ayuda = document.getElementById('ayudaPais');
@@ -68,9 +56,11 @@ function verificarPrefijo() {
         if (diccionario[ult]) {
             const info = diccionario[ult];
             const extra = info.extra ? ` (y ${info.extra.join(', ')})` : '';
-            ayuda.innerHTML = `✅ <b>${info.nombre}:</b> 1 al ${info.max}${extra} — Ej: MEX1, SCO5-8`;
+            ayuda.innerHTML = `✅ <b>${info.nombre}:</b> 1–${info.max}${extra}`;
+            ayuda.className = 'hint-text';
         } else if (ult.length >= 2) {
             ayuda.textContent = '❌ Prefijo desconocido';
+            ayuda.className = 'hint-text err';
         } else {
             ayuda.textContent = '';
         }
@@ -79,7 +69,7 @@ function verificarPrefijo() {
     }
 }
 
-// ── ANALIZADOR DE ENTRADA ─────────────────────────────
+// ── PARSER DE ENTRADA ─────────────────────────────────
 function analizarEntrada(inputStr) {
     const codigos = [];
     const partes = inputStr.split(',');
@@ -100,7 +90,6 @@ function analizarEntrada(inputStr) {
         }
         if (!prefijo) continue;
 
-        // Rango (ej: 5-8)
         if (numerosStr.includes('-')) {
             const [a, b] = numerosStr.split('-');
             const inicio = parseInt(a.trim());
@@ -132,7 +121,6 @@ async function agregarLamina() {
         return;
     }
 
-    // Validar contra el diccionario del servidor ANTES de enviar
     const invalidos = [];
     const validos = [];
     for (const cod of codigos) {
@@ -143,17 +131,17 @@ async function agregarLamina() {
         if (numStr === '00') {
             if (!info.extra || !info.extra.includes('00')) { invalidos.push(`${cod}: no tiene lámina 00`); continue; }
         } else if (num < 1 || num > info.max) {
-            invalidos.push(`${cod}: número fuera de rango (1-${info.max})`); continue;
+            invalidos.push(`${cod}: fuera de rango (1–${info.max})`); continue;
         }
         validos.push(cod);
     }
 
-    if (invalidos.length > 0) {
-        showToast(`❌ Errores: ${invalidos.join(', ')}`, 'err');
-    }
+    if (invalidos.length > 0) showToast(`❌ ${invalidos.slice(0,2).join(', ')}${invalidos.length > 2 ? '...' : ''}`, 'err');
     if (validos.length === 0) return;
 
     try {
+        const btn = document.getElementById('btnAgregar');
+        btn.disabled = true;
         const res = await fetch('/api/laminas', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -168,46 +156,25 @@ async function agregarLamina() {
         } else {
             showToast('❌ Error del servidor', 'err');
         }
+        btn.disabled = false;
     } catch(e) {
-        showToast('❌ Sin conexión con el servidor', 'err');
+        showToast('❌ Sin conexión', 'err');
+        document.getElementById('btnAgregar').disabled = false;
     }
 }
 
-// ── QUITAR LÁMINA (botón - QUITAR en la vista) ────────
-async function quitarLaminaChip(codigo, cantidadActual) {
-    const nuevaCantidad = cantidadActual - 1;
-    if (nuevaCantidad <= 0) {
-        // Eliminar completamente
-        try {
-            const res = await fetch(`/api/laminas/${encodeURIComponent(codigo)}`, { method: 'DELETE' });
-            if (res.ok) { showToast(`🗑️ ${codigo} eliminada`, 'warn'); await cargarLaminas(); }
-        } catch(e) { showToast('❌ Error', 'err'); }
-    } else {
-        // Reducir cantidad
-        try {
-            const res = await fetch(`/api/laminas/${encodeURIComponent(codigo)}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cantidad: nuevaCantidad })
-            });
-            if (res.ok) { showToast(`➖ ${codigo} → x${nuevaCantidad}`, 'warn'); await cargarLaminas(); }
-        } catch(e) { showToast('❌ Error', 'err'); }
-    }
-}
-
-// ── MODAL MODIFICAR (botón MODIFICAR abre ingreso manual) ──
+// ── MODAL MODIFICAR ───────────────────────────────────
 function abrirModificarManual() {
     modalModo = 'manual';
     modalDatos = {};
     document.getElementById('modalTitulo').textContent = 'Modificar Lámina';
-    document.getElementById('modalMensaje').textContent = 'Ingresá el código (ej: MEX1) y la nueva cantidad. Si ponés 0, se elimina.';
+    document.getElementById('modalMensaje').textContent = 'Ingresá el código y la nueva cantidad. Con 0 se elimina.';
     document.getElementById('bloqueNumero').style.display = 'block';
     document.getElementById('modalInputNumero').value = '';
     document.getElementById('modalInputCantidad').value = '';
-    document.getElementById('modalModificar').style.display = 'flex';
+    document.getElementById('modalModificar').classList.add('open');
     document.getElementById('modalInputNumero').focus();
 
-    // Auto-completar cantidad al escribir el código
     document.getElementById('modalInputNumero').oninput = () => {
         const val = document.getElementById('modalInputNumero').value.trim().toUpperCase().replace(/\s+/g,'');
         const match = val.match(/^([A-Z]{2,3})(\d{1,2}|00)$/);
@@ -223,17 +190,17 @@ function abrirModificar(codigo, cantidadActual) {
     modalModo = 'especifica';
     modalDatos = { codigo, cantidadActual };
     document.getElementById('modalTitulo').textContent = `Modificar ${codigo}`;
-    document.getElementById('modalMensaje').textContent = 'Cambiá la cantidad. Si ponés 0, se elimina del registro.';
+    document.getElementById('modalMensaje').textContent = 'Cambiá la cantidad. Con 0 se elimina del registro.';
     document.getElementById('bloqueNumero').style.display = 'none';
     const inputCant = document.getElementById('modalInputCantidad');
     inputCant.value = cantidadActual;
-    document.getElementById('modalModificar').style.display = 'flex';
+    document.getElementById('modalModificar').classList.add('open');
     inputCant.focus();
     inputCant.select();
 }
 
 function cerrarModal() {
-    document.getElementById('modalModificar').style.display = 'none';
+    document.getElementById('modalModificar').classList.remove('open');
 }
 
 async function procesarModal() {
@@ -246,29 +213,23 @@ async function procesarModal() {
     let codigo = '';
     if (modalModo === 'especifica') {
         codigo = modalDatos.codigo;
-    } else if (modalModo === 'manual') {
+    } else {
         const val = document.getElementById('modalInputNumero').value.trim().toUpperCase().replace(/\s+/g,'');
         const match = val.match(/^([A-Z]{2,3})(\d{1,2}|00)$/);
         if (!match) { showToast('❌ Código inválido', 'err'); return; }
         codigo = `${match[1]} ${match[2] === '00' ? '00' : String(parseInt(match[2])).padStart(2,'0')}`;
-
-        // Validar contra diccionario
-        const pref = match[1];
-        const numStr = String(parseInt(match[2])).padStart(2,'0');
-        const info = diccionario[pref];
-        if (!info) { showToast('❌ País no existe en el diccionario', 'err'); return; }
+        const info = diccionario[match[1]];
+        if (!info) { showToast('❌ País no existe', 'err'); return; }
     }
 
     cerrarModal();
 
     if (cantVal === 0) {
-        // Eliminar
         try {
             const res = await fetch(`/api/laminas/${encodeURIComponent(codigo)}`, { method: 'DELETE' });
             if (res.ok) { showToast(`🗑️ ${codigo} eliminada`, 'warn'); await cargarLaminas(); }
         } catch(e) { showToast('❌ Error', 'err'); }
     } else {
-        // Actualizar o crear
         const existe = todasLasLaminas.find(l => l.codigo === codigo);
         if (existe) {
             try {
@@ -280,7 +241,6 @@ async function procesarModal() {
                 if (res.ok) { showToast(`✅ ${codigo} → x${cantVal}`, 'ok'); await cargarLaminas(); }
             } catch(e) { showToast('❌ Error', 'err'); }
         } else if (cantVal > 0) {
-            // No existe, hay que crearla primero
             try {
                 await fetch('/api/laminas', {
                     method: 'POST',
@@ -312,26 +272,41 @@ function filtrarLaminas() {
 
 function renderizarLaminas(laminas) {
     const contenedor = document.getElementById('listaLaminas');
+
+    // Actualizar contador
+    const agrupadas = {};
+    (laminas || todasLasLaminas).forEach(l => {
+        const [prefijo] = l.codigo.split(' ');
+        if (!agrupadas[prefijo]) agrupadas[prefijo] = 0;
+        agrupadas[prefijo]++;
+    });
+    document.getElementById('contadorTotal').textContent = Object.keys(
+        todasLasLaminas.reduce((acc, l) => { const [p] = l.codigo.split(' '); acc[p] = 1; return acc; }, {})
+    ).length + ' países';
+
     if (!laminas || laminas.length === 0) {
-        contenedor.innerHTML = '<p style="color:var(--text-dim);text-align:center;padding:20px;">No hay láminas guardadas.</p>';
+        contenedor.innerHTML = `
+            <div class="empty-state">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <p>No hay láminas registradas aún.<br>Ingresá códigos arriba para comenzar.</p>
+            </div>`;
         return;
     }
 
     // Agrupar por prefijo
-    const agrupadas = {};
+    const grupos = {};
     laminas.forEach(l => {
         const [prefijo, num] = l.codigo.split(' ');
-        if (!agrupadas[prefijo]) agrupadas[prefijo] = { pais: l.pais || prefijo, prefijo, numeros: [] };
-        agrupadas[prefijo].numeros.push({ numero: num, cantidad: l.cantidad, codigoCompleto: l.codigo });
+        if (!grupos[prefijo]) grupos[prefijo] = { pais: l.pais || prefijo, prefijo, numeros: [] };
+        grupos[prefijo].numeros.push({ numero: num, cantidad: l.cantidad, codigoCompleto: l.codigo });
     });
 
-    const lista = Object.values(agrupadas).sort((a, b) => a.pais.localeCompare(b.pais));
+    const lista = Object.values(grupos).sort((a, b) => a.pais.localeCompare(b.pais));
 
-    let html = `<div class="laminas-grid">
-        <div class="tabla-header">
-            <div style="padding-left:8px;">País</div>
-            <div>Láminas (click para editar · - para quitar una)</div>
-        </div>`;
+    let html = `<div class="tabla-header">
+        <div>País</div>
+        <div>Números (click para editar)</div>
+    </div>`;
 
     lista.forEach(grupo => {
         grupo.numeros.sort((a, b) => {
@@ -341,30 +316,109 @@ function renderizarLaminas(laminas) {
         });
 
         const chips = grupo.numeros.map(n => {
-            const mult = n.cantidad > 1 ? `<span class="mult">x${n.cantidad}</span>` : '';
+            const mult = n.cantidad > 1 ? `<span class="mult">(x${n.cantidad})</span>` : '';
             return `<span class="chip"
                 onclick="abrirModificar('${n.codigoCompleto}', ${n.cantidad})"
                 title="Editar ${n.codigoCompleto}">
-                <span class="num">${n.numero}</span>${mult}
-            </span><span class="chip chip-minus"
-                onclick="event.stopPropagation(); quitarLaminaChip('${n.codigoCompleto}', ${n.cantidad})"
-                title="Quitar una de ${n.codigoCompleto}"
-                style="padding:6px 7px; background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.3);">
-                <span style="color:#ef4444;font-weight:700;font-size:0.85rem;">−</span>
+                <span class="num">${parseInt(n.numero)}</span>${mult}
             </span>`;
         }).join('');
 
         html += `<div class="pais-row">
             <div class="pais-info">
                 <span class="pais-nombre">${grupo.pais}</span>
-                <span class="pais-codigo">(${grupo.prefijo})</span>
+                <span class="pais-codigo">${grupo.prefijo}</span>
             </div>
             <div class="numeros-area">${chips}</div>
         </div>`;
     });
 
-    html += '</div>';
     contenedor.innerHTML = html;
+}
+
+// ── DESCARGAR IMAGEN COMPACTA ─────────────────────────
+async function descargarImagen() {
+    if (todasLasLaminas.length === 0) {
+        showToast('⚠️ No hay láminas para exportar', 'warn');
+        return;
+    }
+    showToast('📸 Generando imagen...', 'ok');
+
+    // Agrupar
+    const grupos = {};
+    todasLasLaminas.forEach(l => {
+        const [prefijo, num] = l.codigo.split(' ');
+        if (!grupos[prefijo]) grupos[prefijo] = { pais: l.pais || prefijo, prefijo, numeros: [] };
+        grupos[prefijo].numeros.push({ numero: num, cantidad: l.cantidad });
+    });
+    const lista = Object.values(grupos).sort((a, b) => a.pais.localeCompare(b.pais));
+
+    // Construir tabla compacta
+    const rows = lista.map(g => {
+        g.numeros.sort((a, b) => (parseInt(a.numero)||0) - (parseInt(b.numero)||0));
+        const nums = g.numeros.map(n => {
+            const label = parseInt(n.numero);
+            return n.cantidad > 1
+                ? `<span style="background:#1e2a3a;border:1px solid #334;border-radius:5px;padding:3px 7px;font-size:11px;font-weight:700;color:#f1f5f9">${label} <span style="color:#f59e0b;font-size:10px">x${n.cantidad}</span></span>`
+                : `<span style="background:#1e2a3a;border:1px solid #334;border-radius:5px;padding:3px 7px;font-size:11px;font-weight:600;color:#f1f5f9">${label}</span>`;
+        }).join('');
+        return `<tr>
+            <td style="padding:7px 12px;border-bottom:1px solid #1a2235;white-space:nowrap">
+                <div style="font-size:12px;font-weight:700;color:#f1f5f9">${g.pais}</div>
+                <div style="font-size:10px;color:#475569;margin-top:1px">${g.prefijo}</div>
+            </td>
+            <td style="padding:7px 12px;border-bottom:1px solid #1a2235">
+                <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${nums}</div>
+            </td>
+        </tr>`;
+    }).join('');
+
+    const now = new Date();
+    const fecha = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+
+    const html = `
+    <div style="background:#0d1117;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:20px 20px 16px;width:520px;border-radius:12px">
+        <div style="text-align:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #1e2636">
+            <div style="font-size:18px;font-weight:800;color:#f1f5f9;letter-spacing:-0.3px">Mis Láminas Repetidas</div>
+            <div style="font-size:11px;color:#475569;margin-top:3px;letter-spacing:0.5px">MUNDIAL 2026 · ${fecha}</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+            <thead>
+                <tr>
+                    <th style="padding:6px 12px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:1px;text-align:left;border-bottom:2px solid #1e2636">País</th>
+                    <th style="padding:6px 12px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:1px;text-align:left;border-bottom:2px solid #1e2636">Números</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+        <div style="text-align:center;margin-top:14px;font-size:9px;color:#2d3748;letter-spacing:0.5px">Generado por GhostDev Gestor</div>
+    </div>`;
+
+    const container = document.getElementById('exportContainer');
+    container.innerHTML = html;
+    container.style.left = '-9999px';
+    container.style.top = '0';
+    container.style.position = 'fixed';
+
+    const el = container.firstElementChild;
+
+    try {
+        const canvas = await html2canvas(el, {
+            scale: 2.5,
+            backgroundColor: '#0d1117',
+            useCORS: true,
+            logging: false
+        });
+        const link = document.createElement('a');
+        link.download = `repetidas-mundial2026-${fecha.replace(/\//g,'-')}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('✅ Imagen descargada', 'ok');
+    } catch(e) {
+        showToast('❌ Error al generar imagen', 'err');
+    } finally {
+        container.innerHTML = '';
+    }
 }
 
 // ── TOAST ─────────────────────────────────────────────
@@ -373,5 +427,5 @@ function showToast(msg, tipo) {
     t.textContent = msg;
     t.className = `toast t-${tipo} show`;
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { t.className = 'toast'; }, 2500);
+    toastTimer = setTimeout(() => { t.className = 'toast'; }, 2800);
 }

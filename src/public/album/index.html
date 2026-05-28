@@ -2,68 +2,86 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Mi Álbum · Mundial 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="topnav">
-    <span class="topnav-brand">⚽ Mundial 2026</span>
-    <div class="topnav-links">
-        <a href="../laminas/index.html">Repetidas</a>
-        <a href="index.html" class="active">Mi Álbum</a>
+    <a class="nav-brand" href="../laminas/index.html">
+        <span class="ball">⚽</span>
+        <span class="brand-text">Mundial <b>2026</b></span>
+    </a>
+    <div class="nav-links">
+        <a href="../laminas/index.html" class="nav-link">Repetidas</a>
+        <a href="index.html" class="nav-link active">Mi Álbum</a>
     </div>
 </nav>
 
-<div class="page">
+<main class="main">
 
-    <div class="page-header">
+    <div class="page-hero">
         <h1>Mi Álbum Físico</h1>
-        <p>FIFA World Cup 2026 · Panini · Solo marcá y desmarcá</p>
+        <p>FIFA World Cup 2026 · Panini · Marcá las láminas que pegaste</p>
     </div>
 
     <!-- STATS -->
-    <div class="stats-row">
+    <div class="stats-grid">
         <div class="stat-card">
-            <div class="s-num" id="statTotal">—</div>
-            <div class="s-lbl">Total</div>
+            <div class="stat-value" id="statTotal">—</div>
+            <div class="stat-label">Total</div>
         </div>
         <div class="stat-card s-green">
-            <div class="s-num" id="statTengo">—</div>
-            <div class="s-lbl">Tengo</div>
+            <div class="stat-value" id="statTengo">—</div>
+            <div class="stat-label">Tengo</div>
         </div>
         <div class="stat-card s-dim">
-            <div class="s-num" id="statFaltan">—</div>
-            <div class="s-lbl">Me faltan</div>
+            <div class="stat-value" id="statFaltan">—</div>
+            <div class="stat-label">Me faltan</div>
         </div>
-        <div class="stat-card s-pct">
-            <div class="s-num" id="statPct">0%</div>
-            <div class="s-lbl">Completado</div>
+        <div class="stat-card s-blue">
+            <div class="stat-value" id="statPct">0%</div>
+            <div class="stat-label">Completado</div>
         </div>
     </div>
 
-    <div class="prog-wrap">
-        <div class="prog-bar-outer">
-            <div class="prog-bar-inner" id="progBar" style="width:0%"></div>
+    <div class="prog-container">
+        <div class="prog-track">
+            <div class="prog-fill" id="progBar" style="width:0%"></div>
         </div>
     </div>
 
     <!-- TOOLBAR -->
     <div class="toolbar">
-        <button class="tb-btn f-all" onclick="setFilter('all',this)">TODAS</button>
-        <button class="tb-btn" onclick="setFilter('have',this)">TENGO</button>
-        <button class="tb-btn" onclick="setFilter('miss',this)">FALTAN</button>
-        <button class="tb-btn" id="btnSort" onclick="toggleSort()">↕ DEFECTO</button>
-        <input class="tb-search" type="text" id="searchInput" placeholder="🔍 Buscar país..." oninput="applySearch()">
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">Todas</button>
+            <button class="filter-btn" data-filter="have" onclick="setFilter('have',this)">Tengo</button>
+            <button class="filter-btn" data-filter="miss" onclick="setFilter('miss',this)">Faltan</button>
+        </div>
+        <div class="toolbar-right">
+            <button class="sort-btn" id="btnSort" onclick="toggleSort()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M6 12h12M9 18h6"/></svg>
+                Defecto
+            </button>
+            <div class="search-wrap">
+                <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input class="search-input" type="text" id="searchInput" placeholder="Buscar país..." oninput="applySearch()">
+            </div>
+        </div>
     </div>
 
-    <div class="hint-bar">💡 Clic en una lámina para marcarla o desmarcarla · El álbum no se mezcla con las repetidas</div>
-
-    <div id="albumContent" class="filter-all">
-        <div class="loading"><div class="spinner"></div> Cargando álbum...</div>
+    <div class="hint-bar">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Toca una lámina para marcarla o desmarcarla · Este álbum no afecta las repetidas
     </div>
-</div>
+
+    <div id="albumContent"></div>
+
+</main>
 
 <div class="toast" id="toast"></div>
 <script src="script.js"></script>
