@@ -148,5 +148,10 @@
     "codigo": "PAN 20",
     "pais": "Panamá",
     "cantidad": 1
+  },
+  {
+    "codigo": "GHA 19",
+    "pais": "Ghana",
+    "cantidad": 1
   }
 ]
