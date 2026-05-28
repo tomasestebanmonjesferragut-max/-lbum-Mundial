@@ -23,5 +23,10 @@
     "codigo": "SUI 14",
     "pais": "Suiza",
     "cantidad": 2
+  },
+  {
+    "codigo": "CUW 05",
+    "pais": "Curazao",
+    "cantidad": 1
   }
 ]
