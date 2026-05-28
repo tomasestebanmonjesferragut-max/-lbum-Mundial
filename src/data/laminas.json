@@ -183,5 +183,10 @@
     "codigo": "BIH 09",
     "pais": "Bosnia y Herzegovina",
     "cantidad": 1
+  },
+  {
+    "codigo": "JPN 16",
+    "pais": "Japón",
+    "cantidad": 1
   }
 ]
