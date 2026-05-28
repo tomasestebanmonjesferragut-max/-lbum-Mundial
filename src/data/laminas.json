@@ -263,5 +263,10 @@
     "codigo": "ENG 11",
     "pais": "Inglaterra",
     "cantidad": 1
+  },
+  {
+    "codigo": "FRA 20",
+    "pais": "Francia",
+    "cantidad": 1
   }
 ]
