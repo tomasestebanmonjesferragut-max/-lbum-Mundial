@@ -278,5 +278,10 @@
     "codigo": "PAN 01",
     "pais": "Panamá",
     "cantidad": 1
+  },
+  {
+    "codigo": "PAR 01",
+    "pais": "Paraguay",
+    "cantidad": 1
   }
 ]
