@@ -268,5 +268,10 @@
     "codigo": "FRA 20",
     "pais": "Francia",
     "cantidad": 1
+  },
+  {
+    "codigo": "KOR 01",
+    "pais": "Corea del Sur",
+    "cantidad": 1
   }
 ]
