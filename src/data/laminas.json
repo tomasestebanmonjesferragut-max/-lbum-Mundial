@@ -83,5 +83,10 @@
     "codigo": "CZE 05",
     "pais": "República Checa",
     "cantidad": 1
+  },
+  {
+    "codigo": "BEL 12",
+    "pais": "Bélgica",
+    "cantidad": 1
   }
 ]
