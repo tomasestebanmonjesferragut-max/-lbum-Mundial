@@ -1768,5 +1768,10 @@
     "codigo": "PAN 05",
     "pais": "Panamá",
     "pegada": true
+  },
+  {
+    "codigo": "QAT 09",
+    "pais": "Catar",
+    "pegada": true
   }
 ]
