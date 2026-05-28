@@ -1798,5 +1798,10 @@
     "codigo": "MAR 16",
     "pais": "Marruecos",
     "pegada": true
+  },
+  {
+    "codigo": "PAN 09",
+    "pais": "Panamá",
+    "pegada": true
   }
 ]
