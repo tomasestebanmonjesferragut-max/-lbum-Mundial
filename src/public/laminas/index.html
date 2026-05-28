@@ -3,63 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GhostDev - Repetidas Mundial 2026</title>
+    <title>Repetidas · Mundial 2026</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>Álbum Mundial 2026</h1>
-            <h3 style="color: var(--text-dim);">Gestor de Láminas Repetidas</h3>
-            <a href="../album/index.html" style="display:inline-block;margin-top:10px;padding:8px 20px;background:rgba(0,242,254,0.1);border:1px solid rgba(0,242,254,0.3);border-radius:6px;color:var(--neon-cyan);text-decoration:none;font-size:0.85rem;letter-spacing:1px;">📖 Ver Mi Álbum Físico</a>
-        </div>
+<nav class="topnav">
+    <span class="topnav-brand">⚽ Mundial 2026</span>
+    <div class="topnav-links">
+        <a href="index.html" class="active">Repetidas</a>
+        <a href="../album/index.html">Mi Álbum</a>
+    </div>
+</nav>
 
-        <div class="panel">
-            <h3>Agregar Lámina Repetida</h3>
-            <div class="row">
-                <div style="flex-grow: 1;">
-                    <input type="text" id="codigoLamina" placeholder="Ej: SCO 05-08, ALG 10" style="text-transform: uppercase;" oninput="verificarPrefijo()">
-                    <small id="ayudaPais" style="color: var(--neon-cyan); display: block; margin-top: -10px; margin-bottom: 15px; min-height: 18px;"></small>
-                </div>
-                <button class="btn-guardar" onclick="agregarLamina()" style="width: 30%; height: 45px;">Guardar</button>
-            </div>
-        </div>
-
-        <div class="panel">
-            <h3>Mis Láminas</h3>
-            <button onclick="descargarImagen()" style="background: #2563eb; margin-bottom: 15px; padding: 10px; width: 100%; cursor: pointer; border: none; border-radius: 5px; color: white; font-weight: bold;">📸 Descargar Tabla como Imagen</button>
-            
-            <input type="text" id="buscador" placeholder="🔍 Buscar por código o país..." onkeyup="filtrarLaminas()">
-            
-            <div id="listaLaminas" style="margin-top: 15px;">
-                </div>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>Láminas Repetidas</h1>
+        <h3 style="color: var(--text-dim);">Gestión de intercambio · Mundial 2026</h3>
     </div>
 
-    <div id="modalModificar" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitulo" style="color: var(--neon-cyan); margin-top: 0;">Modificar Lámina</h3>
-            <p id="modalMensaje" style="color: var(--text-dim); font-size: 0.9em; margin-bottom: 20px;"></p>
-            
-            <div id="bloqueNumero" style="display: none; text-align: left; margin-bottom: 15px;">
-                <label style="color: var(--text-main); font-size: 0.9em; font-weight: bold;">Número de lámina:</label>
-                <input type="text" id="modalInputNumero" placeholder="Ej: 05" style="margin-top: 8px;">
-            </div>
-
-            <div style="text-align: left; margin-bottom: 20px;">
-                <label style="color: var(--text-main); font-size: 0.9em; font-weight: bold;">Nueva cantidad total:</label>
-                <input type="number" id="modalInputCantidad" min="0" placeholder="Ej: 2" style="margin-top: 8px;">
-            </div>
-
-            <div class="modal-acciones">
-                <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-                <button class="btn-guardar" onclick="procesarModal()">Guardar</button>
-            </div>
+    <div class="panel">
+        <h3>Ingresar Láminas</h3>
+        <div style="margin-bottom:8px; color: var(--text-dim); font-size:0.85rem;">
+            Podés ingresar una o varias separadas por coma. Ej: <b style="color:var(--neon-cyan)">MEX1, ARG12, SCO5-8</b>
         </div>
+        <div class="input-row">
+            <input type="text" id="codigoLamina"
+                   placeholder="Ej: MEX1, ARG12"
+                   style="text-transform:uppercase; flex:1;"
+                   oninput="verificarPrefijo()"
+                   autocomplete="off" autocorrect="off" spellcheck="false">
+            <button class="btn-agregar" id="btnAgregar" onclick="agregarLamina()">+ INGRESAR</button>
+            <button class="btn-modificar" id="btnModificar" onclick="abrirModificarManual()">✎ MODIFICAR</button>
+        </div>
+        <small id="ayudaPais" class="ayuda-hint"></small>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="script.js"></script>
+    <div class="panel">
+        <div class="panel-hd">
+            <h3 style="margin:0;">Mis Láminas Repetidas</h3>
+            <input type="text" id="buscador" placeholder="🔍 Buscar..." onkeyup="filtrarLaminas()" class="buscador-inline">
+        </div>
+        <div id="listaLaminas" style="margin-top:15px;"></div>
+    </div>
+</div>
+
+<!-- MODAL MODIFICAR -->
+<div id="modalModificar" class="modal">
+    <div class="modal-content">
+        <h3 id="modalTitulo" style="color:var(--neon-cyan);margin-top:0;">Modificar Lámina</h3>
+        <p id="modalMensaje" style="color:var(--text-dim);font-size:0.9em;margin-bottom:20px;"></p>
+        <div id="bloqueNumero" style="display:none;text-align:left;margin-bottom:15px;">
+            <label style="color:var(--text-main);font-size:0.9em;font-weight:bold;">Código (ej: MEX1):</label>
+            <input type="text" id="modalInputNumero" placeholder="Ej: MEX1" style="margin-top:8px;text-transform:uppercase;">
+        </div>
+        <div style="text-align:left;margin-bottom:20px;">
+            <label style="color:var(--text-main);font-size:0.9em;font-weight:bold;">Nueva cantidad total:</label>
+            <input type="number" id="modalInputCantidad" min="0" placeholder="Ej: 2" style="margin-top:8px;">
+        </div>
+        <div class="modal-acciones">
+            <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+            <button class="btn-guardar" onclick="procesarModal()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

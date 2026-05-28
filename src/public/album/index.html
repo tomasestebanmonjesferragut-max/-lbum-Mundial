@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Álbum Físico · Mundial 2026</title>
+    <title>Mi Álbum · Mundial 2026</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,59 +17,55 @@
 </nav>
 
 <div class="page">
+
     <div class="page-header">
         <h1>Mi Álbum Físico</h1>
-        <p>FIFA World Cup 2026 &nbsp;·&nbsp; Panini &nbsp;·&nbsp; Registro independiente de láminas</p>
+        <p>FIFA World Cup 2026 · Panini · Solo marcá y desmarcá</p>
     </div>
 
+    <!-- STATS -->
     <div class="stats-row">
         <div class="stat-card">
             <div class="s-num" id="statTotal">—</div>
-            <div class="s-lbl">Total láminas</div>
+            <div class="s-lbl">Total</div>
         </div>
         <div class="stat-card s-green">
             <div class="s-num" id="statTengo">—</div>
-            <div class="s-lbl">Pegadas</div>
+            <div class="s-lbl">Tengo</div>
         </div>
         <div class="stat-card s-dim">
             <div class="s-num" id="statFaltan">—</div>
             <div class="s-lbl">Me faltan</div>
         </div>
+        <div class="stat-card s-pct">
+            <div class="s-num" id="statPct">0%</div>
+            <div class="s-lbl">Completado</div>
+        </div>
     </div>
 
     <div class="prog-wrap">
-        <span class="prog-label">Progreso del álbum</span>
         <div class="prog-bar-outer">
             <div class="prog-bar-inner" id="progBar" style="width:0%"></div>
         </div>
-        <div class="prog-pct" id="progPct">0%</div>
     </div>
 
+    <!-- TOOLBAR -->
     <div class="toolbar">
-        <button class="tb-btn f-all" onclick="setFilter('all', this)">TODAS</button>
-        <button class="tb-btn" onclick="setFilter('have', this)">TENGO</button>
-        <button class="tb-btn" onclick="setFilter('miss', this)">FALTAN</button>
-        <button class="tb-btn" id="btnSort" onclick="toggleSort()">↕ ORDEN: DEFECTO</button>
-        <div class="tb-divider"></div>
-        <div class="tb-legend">
-            <div class="tb-legend-item"><div class="leg-dot leg-have"></div>Pegada — clic para quitar</div>
-            <div class="tb-legend-item"><div class="leg-dot leg-miss"></div>Falta — clic para marcar</div>
-        </div>
-        <input class="tb-search" type="text" id="searchInput" placeholder="🔍 Buscar país..." oninput="applyFilters()">
+        <button class="tb-btn f-all" onclick="setFilter('all',this)">TODAS</button>
+        <button class="tb-btn" onclick="setFilter('have',this)">TENGO</button>
+        <button class="tb-btn" onclick="setFilter('miss',this)">FALTAN</button>
+        <button class="tb-btn" id="btnSort" onclick="toggleSort()">↕ DEFECTO</button>
+        <input class="tb-search" type="text" id="searchInput" placeholder="🔍 Buscar país..." oninput="applySearch()">
     </div>
 
-    <div class="hint-bar">💡 Haz clic en cualquier lámina para marcarla como pegada, o volver a hacer clic para quitarla</div>
+    <div class="hint-bar">💡 Clic en una lámina para marcarla o desmarcarla · El álbum no se mezcla con las repetidas</div>
 
     <div id="albumContent" class="filter-all">
-        <div class="loading">
-            <div class="spinner"></div>
-            Cargando álbum...
-        </div>
+        <div class="loading"><div class="spinner"></div> Cargando álbum...</div>
     </div>
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script src="script.js"></script>
 </body>
 </html>
