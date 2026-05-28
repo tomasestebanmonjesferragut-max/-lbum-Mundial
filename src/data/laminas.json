@@ -108,5 +108,10 @@
     "codigo": "CZE 04",
     "pais": "República Checa",
     "cantidad": 1
+  },
+  {
+    "codigo": "USA 20",
+    "pais": "Estados Unidos",
+    "cantidad": 1
   }
 ]
