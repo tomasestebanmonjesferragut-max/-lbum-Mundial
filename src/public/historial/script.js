@@ -6,13 +6,27 @@ const STORAGE_KEY_LAMINAS = 'historial_laminas_snapshot';
 const STORAGE_KEY_ALBUM = 'historial_album_snapshot';
 const STORAGE_KEY_LOG = 'historial_log';
 
+async function fetchLaminas() {
+    try {
+        const res = await fetch('/api/laminas');
+        return res.ok ? await res.json() : [];
+    } catch(e) { return []; }
+}
+
+async function fetchAlbum() {
+    try {
+        const res = await fetch('/api/album');
+        return res.ok ? await res.json() : [];
+    } catch(e) { return []; }
+}
+
 let allLog = [];
 let currentFilter = 'all';
 let currentSearch = '';
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', async () => {
-    await syncAndBuild();
+    await cargarHistorial();
     renderLog();
     setupControls();
 });
@@ -152,6 +166,7 @@ function getBadge(tipo) {
     }
 }
 
+
 // ============ STATS ============
 function updateStats() {
     const total  = allLog.length;
@@ -200,3 +215,6 @@ function showToast(msg) {
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2500);
 }
+
+// ============ AUTO-SYNC ============
+setInterval(syncAndBuild, 10000); // Auto-sync every 10 seconds

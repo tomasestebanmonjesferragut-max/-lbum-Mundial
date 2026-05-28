@@ -13,8 +13,12 @@ let currentSearch = '';
 
 // ── INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-    await cargarHistorial();
-    renderLog();
+    try {
+        const res = await fetch('/api/diccionario');
+        if (res.ok) diccionario = await res.json();
+    } catch(e) { console.warn('Error cargando diccionario'); }
+    await cargarLaminas();
+    configurarTeclado();
     setupControls();
 });
 
@@ -427,4 +431,23 @@ function showToast(msg, tipo) {
     t.className = `toast t-${tipo} show`;
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.className = 'toast'; }, 2800);
+}
+
+// ── SETUP CONTROLS ────────────────────────────────────
+function setupControls() {
+    const input = document.getElementById('codigoLamina');
+    const buscador = document.getElementById('buscador');
+    const btnAgregar = document.getElementById('btnAgregar');
+    const btnModificar = document.getElementById('btnModificar');
+    const btnDescargar = document.getElementById('btnDescargar');
+    const btnModalAceptar = document.getElementById('btnModalAceptar');
+    const btnModalCancelar = document.getElementById('btnModalCancelar');
+    
+    if (input) input.addEventListener('input', verificarPrefijo);
+    if (buscador) buscador.addEventListener('input', filtrarLaminas);
+    if (btnAgregar) btnAgregar.addEventListener('click', agregarLamina);
+    if (btnModificar) btnModificar.addEventListener('click', abrirModificarManual);
+    if (btnDescargar) btnDescargar.addEventListener('click', descargarImagen);
+    if (btnModalAceptar) btnModalAceptar.addEventListener('click', procesarModal);
+    if (btnModalCancelar) btnModalCancelar.addEventListener('click', cerrarModal);
 }

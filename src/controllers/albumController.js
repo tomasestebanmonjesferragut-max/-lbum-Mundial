@@ -1,28 +1,44 @@
-const { registrarHistorial } = require('./historialLogger');
-const historialPath = path.join(__dirname, '../data/historial.json');
 const fs = require('fs');
 const path = require('path');
+const { registrarHistorial } = require('./historialLogger');
 const simpleGit = require('simple-git');
 const diccionario = require('../data/diccionarioMundial');
 
-const git = simpleGit();
+const historialPath = path.join(__dirname, '../data/historial.json');
 const dataPath = path.join(__dirname, '../data/album.json');
+const git = simpleGit();
+
+const safeWriteJson = (filePath, data) => {
+    const tempPath = `${filePath}.tmp`;
+    fs.writeFileSync(tempPath, JSON.stringify(data, null, 2));
+    fs.renameSync(tempPath, filePath);
+};
 
 if (!fs.existsSync(dataPath)) {
-    fs.writeFileSync(dataPath, JSON.stringify([], null, 2));
+    safeWriteJson(dataPath, []);
 }
 
-// Fire-and-forget: sin await. Se incluye el historialPath para guardar ambos archivos
+let gitQueue = Promise.resolve();
+
 const guardarEnGitHub = () => {
-    git.add([dataPath, historialPath])
-        .then(() => git.commit('Auto-update: Álbum físico y log actualizados'))
-        .then(() => git.push('origin', 'main'))
-        .catch(err => console.error('Error Git (album):', err));
+    gitQueue = gitQueue.then(async () => {
+        try {
+            await git.add([dataPath, historialPath]);
+            await git.commit('Auto-update: Álbum físico y log actualizados');
+            await git.push('origin', 'main');
+        } catch (err) {
+            console.error('Error controlado en Git (album):', err.message);
+        }
+    });
 };
 
 const listarAlbum = (req, res) => {
-    const laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-    res.status(200).json(laminas);
+    try {
+        const laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+        res.status(200).json(laminas);
+    } catch (error) {
+        res.status(200).json([]);
+    }
 };
 
 const agregarAlbum = (req, res) => {
@@ -33,12 +49,14 @@ const agregarAlbum = (req, res) => {
             return res.status(400).json({ error: 'No se enviaron códigos' });
         }
 
-        let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+        let laminas = [];
+        try { laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8')); } catch(e) {}
+        
         let agregadas = 0;
         let errores = [];
 
         for (let codigoRaw of codigosRecibidos) {
-            const match = codigoRaw.toUpperCase().replace(/\s+/g, '').match(/^([A-Z]{2,3})(00|\d{1,2})$/);
+            const match = codigoRaw.toUpperCase().replace(/\s+/g, '').match(/^([A-Z]{2,4})(00|\d{1,3})$/);  
             if (!match) { errores.push(`${codigoRaw}: Formato inválido`); continue; }
 
             let prefijo = match[1];
@@ -66,8 +84,8 @@ const agregarAlbum = (req, res) => {
         }
 
         if (agregadas > 0) {
-            fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
-            guardarEnGitHub(); // sin await
+            safeWriteJson(dataPath, laminas);
+            guardarEnGitHub();
         }
 
         res.status(200).json({
@@ -81,19 +99,23 @@ const agregarAlbum = (req, res) => {
 };
 
 const quitarAlbum = (req, res) => {
-    const codigo = decodeURIComponent(req.params.codigo);
-    let laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-    
-    // Buscar la lámina antes de quitarla para registrar el evento
-    const lamina = laminas.find(l => l.codigo === codigo);
-    if (lamina) {
-        registrarHistorial({ tipo: 'album-remove', fuente: 'album', codigo: lamina.codigo, pais: lamina.pais, detalle: 'Quitada del álbum' });
-    }
+    try {
+        const codigo = decodeURIComponent(req.params.codigo);
+        let laminas = [];
+        try { laminas = JSON.parse(fs.readFileSync(dataPath, 'utf-8')); } catch(e) {}
+        
+        const lamina = laminas.find(l => l.codigo === codigo);
+        if (lamina) {
+            registrarHistorial({ tipo: 'album-remove', fuente: 'album', codigo: lamina.codigo, pais: lamina.pais, detalle: 'Quitada del álbum' });
+        }
 
-    laminas = laminas.filter(l => l.codigo !== codigo);
-    fs.writeFileSync(dataPath, JSON.stringify(laminas, null, 2));
-    guardarEnGitHub(); // sin await
-    res.status(200).json({ mensaje: 'Lámina desmarcada' });
+        laminas = laminas.filter(l => l.codigo !== codigo);
+        safeWriteJson(dataPath, laminas);
+        guardarEnGitHub();
+        res.status(200).json({ mensaje: 'Lámina desmarcada' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error del servidor' });
+    }
 };
 
 module.exports = { listarAlbum, agregarAlbum, quitarAlbum };
