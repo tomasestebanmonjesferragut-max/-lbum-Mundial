@@ -13,5 +13,10 @@
     "codigo": "GER 04",
     "pais": "Alemania",
     "cantidad": 1
+  },
+  {
+    "codigo": "COL 20",
+    "pais": "Colombia",
+    "cantidad": 1
   }
 ]
