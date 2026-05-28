@@ -138,5 +138,10 @@
     "codigo": "EGY 10",
     "pais": "Egipto",
     "cantidad": 1
+  },
+  {
+    "codigo": "CUW 20",
+    "pais": "Curazao",
+    "cantidad": 1
   }
 ]
