@@ -1,5 +1,14 @@
 [
   {
+    "id": "lddyuz7",
+    "ts": 1780008575609,
+    "tipo": "album-add",
+    "fuente": "album",
+    "codigo": "FWC 16",
+    "pais": "FIFA",
+    "detalle": "Pegada en el álbum"
+  },
+  {
     "id": "i655ixc",
     "ts": 1780008371479,
     "tipo": "remove",
