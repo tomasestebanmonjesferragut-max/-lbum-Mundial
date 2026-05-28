@@ -73,5 +73,10 @@
     "codigo": "NZL 18",
     "pais": "Nueva Zelanda",
     "cantidad": 1
+  },
+  {
+    "codigo": "CPV 19",
+    "pais": "Cabo Verde",
+    "cantidad": 1
   }
 ]
