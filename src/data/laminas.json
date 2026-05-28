@@ -143,5 +143,10 @@
     "codigo": "CUW 20",
     "pais": "Curazao",
     "cantidad": 1
+  },
+  {
+    "codigo": "PAN 20",
+    "pais": "Panamá",
+    "cantidad": 1
   }
 ]
