@@ -13,5 +13,10 @@
     "codigo": "GER 04",
     "pais": "Alemania",
     "cantidad": 1
+  },
+  {
+    "codigo": "CIV 02",
+    "pais": "Costa de Marfil",
+    "cantidad": 1
   }
 ]
