@@ -1838,5 +1838,15 @@
     "codigo": "FWC 15",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "USA 18",
+    "pais": "Estados Unidos",
+    "pegada": true
+  },
+  {
+    "codigo": "USA 17",
+    "pais": "Estados Unidos",
+    "pegada": true
   }
 ]

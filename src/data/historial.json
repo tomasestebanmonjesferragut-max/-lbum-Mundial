@@ -1,5 +1,23 @@
 [
   {
+    "id": "rwjz0t7",
+    "ts": 1780164527300,
+    "tipo": "album-add",
+    "fuente": "album",
+    "codigo": "USA 17",
+    "pais": "Estados Unidos",
+    "detalle": "Pegada en el álbum"
+  },
+  {
+    "id": "nj3pys0",
+    "ts": 1780164526774,
+    "tipo": "album-add",
+    "fuente": "album",
+    "codigo": "USA 18",
+    "pais": "Estados Unidos",
+    "detalle": "Pegada en el álbum"
+  },
+  {
     "id": "b5n9poe",
     "ts": 1780164516284,
     "tipo": "album-add",
