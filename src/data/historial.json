@@ -1,5 +1,14 @@
 [
   {
+    "id": "s8p5m7m",
+    "ts": 1780258001740,
+    "tipo": "album-add",
+    "fuente": "album",
+    "codigo": "GHA 19",
+    "pais": "Ghana",
+    "detalle": "Pegada en el álbum"
+  },
+  {
     "id": "1517kqp",
     "ts": 1780257703425,
     "tipo": "remove",

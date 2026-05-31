@@ -1873,5 +1873,10 @@
     "codigo": "SWE 09",
     "pais": "Suecia",
     "pegada": true
+  },
+  {
+    "codigo": "GHA 19",
+    "pais": "Ghana",
+    "pegada": true
   }
 ]
