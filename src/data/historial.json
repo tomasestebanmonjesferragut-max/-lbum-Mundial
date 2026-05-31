@@ -1,5 +1,15 @@
 [
   {
+    "id": "c3mze5r",
+    "ts": 1780257685053,
+    "tipo": "remove",
+    "fuente": "laminas",
+    "codigo": "COL 20",
+    "pais": "Colombia",
+    "cantidad": 0,
+    "detalle": "Eliminada del stock"
+  },
+  {
     "id": "hwohwz6",
     "ts": 1780257131871,
     "tipo": "album-add",
