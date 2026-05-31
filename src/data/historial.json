@@ -1,5 +1,15 @@
 [
   {
+    "id": "1517kqp",
+    "ts": 1780257703425,
+    "tipo": "remove",
+    "fuente": "laminas",
+    "codigo": "PAR 01",
+    "pais": "Paraguay",
+    "cantidad": 0,
+    "detalle": "Eliminada del stock"
+  },
+  {
     "id": "n7gg4ce",
     "ts": 1780257693467,
     "tipo": "remove",
