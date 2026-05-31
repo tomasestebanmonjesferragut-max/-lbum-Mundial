@@ -1,5 +1,15 @@
 [
   {
+    "id": "n7gg4ce",
+    "ts": 1780257693467,
+    "tipo": "remove",
+    "fuente": "laminas",
+    "codigo": "ENG 11",
+    "pais": "Inglaterra",
+    "cantidad": 0,
+    "detalle": "Eliminada del stock"
+  },
+  {
     "id": "c3mze5r",
     "ts": 1780257685053,
     "tipo": "remove",
