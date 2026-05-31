@@ -1868,5 +1868,10 @@
     "codigo": "FWC 06",
     "pais": "FIFA",
     "pegada": true
+  },
+  {
+    "codigo": "SWE 09",
+    "pais": "Suecia",
+    "pegada": true
   }
 ]

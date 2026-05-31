@@ -1,5 +1,14 @@
 [
   {
+    "id": "hwohwz6",
+    "ts": 1780257131871,
+    "tipo": "album-add",
+    "fuente": "album",
+    "codigo": "SWE 09",
+    "pais": "Suecia",
+    "detalle": "Pegada en el álbum"
+  },
+  {
     "id": "516bkut",
     "ts": 1780257030331,
     "tipo": "album-add",
